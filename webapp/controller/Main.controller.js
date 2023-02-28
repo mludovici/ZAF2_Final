@@ -10,26 +10,19 @@ sap.ui.define([
         return Controller.extend("zaf2final.controller.Main", {
             onInit: function () {
                 var oModel = new JSONModel();
-                oModel.loadData("/data/artists.json", {}, false);
-                this.getView().setModel(oModel, "ajsdlajsldjasd");
+                oModel.loadData("/data/arsdfsdfsdfsts.json", {}, false);
 
-                var oModel2 = new OdataModel();
                 oModel2.setData({
-                    "movie": {},
+                    "movie": { "TEST"},
                     "artist": {}
                 });
                 this.getView().setModel(oModel2, "asaasdasd");
             },
 
-            onCollapseAll: function () {
-                var oTreeTable = this.byId("TreeTableBasic");
-                oTreeTable.collapseAll();
-            },
-
 
             onExpandFirstLevel: function () {
                 var oTreeTable = this.byId("TreeTableBasic");
-                oTreeTable.expandToLevel(1);
+
             },
 
             onExpandSelection: function () {
