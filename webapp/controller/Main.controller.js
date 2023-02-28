@@ -11,42 +11,38 @@ sap.ui.define([
             onInit: function () {
                 var oModel = new JSONModel();
                 oModel.loadData("/data/artists.json", {}, false);
-                this.getView().setModel(oModel, "masterMod");
+                this.getView().setModel(oModel, "ajsdlajsldjasd");
 
-                var oModel2 = new JSONModel();
+                var oModel2 = new OdataModel();
                 oModel2.setData({
                     "movie": {},
                     "artist": {}
                 });
-                this.getView().setModel(oModel2, "detailMod");
+                this.getView().setModel(oModel2, "asaasdasd");
             },
 
-            onCollapseAll: function() {
+            onCollapseAll: function () {
                 var oTreeTable = this.byId("TreeTableBasic");
                 oTreeTable.collapseAll();
             },
-    
-            onCollapseSelection: function() {
-                var oTreeTable = this.byId("TreeTableBasic");
-                oTreeTable.collapse(oTreeTable.getSelectedIndices());
-            },
-    
-            onExpandFirstLevel: function() {
+
+
+            onExpandFirstLevel: function () {
                 var oTreeTable = this.byId("TreeTableBasic");
                 oTreeTable.expandToLevel(1);
             },
-    
-            onExpandSelection: function() {
+
+            onExpandSelection: function () {
                 var oTreeTable = this.byId("TreeTableBasic");
                 oTreeTable.expand(oTreeTable.getSelectedIndices());
             },
 
-            onRowSelectionChange: function() {
+            onRowSelectionChange: function () {
                 debugger;
-                //Initialisierungen
-                var oSplitApp = this.byId("splitapp01");
+                //TEST
+                //Iasdasdasd("splitapp01");
                 var oTable = this.getView().byId("TreeTableBasic");
-                var oModel = this.getView().getModel("masterMod");
+
                 var oModelDet = this.getView().getModel("detailMod");
                 //Get the selected row
                 var iSelRowId = oTable.getSelectedIndex();
@@ -57,13 +53,7 @@ sap.ui.define([
                 //Determine the artist path and set the "Single Movie" Object
                 var iIdx = sMovModPath.indexOf("/artMovies");
                 var sMovArtPath = "";
-                if (iIdx === -1) {
-                    //No movie was chosen in the TableTree, but the artist
-                    sMovArtPath = sMovModPath; //"/artRoot/0"
-                } else {
-                    //A movie was selected in the TreeTable
-                    sMovArtPath = sMovModPath.substr(0, iIdx); //"/artRoot/0"
-                }
+
                 var oArtist = oModel.getObject(sMovArtPath);
                 oModelDet.setProperty("/artist", oArtist);
                 //Call the detail page
