@@ -10,11 +10,11 @@ sap.ui.define([
         return Controller.extend("zaf2final.controller.Main", {
             onInit: function () {
                 var oModel = new JSONModel();
-                oModel.loadData("/data/arsdfsdfsdfsts.json", {}, false);
+                oModel.loadData("/data/asdasd", {}, false);
 
                 oModel2.setData({
                     "movie": { "TEST"},
-                    "artist": {"Test Artist"}
+                    "artist": { "TEST ÄNDERUNG"}
                 });
                 this.getView().setModel(oModel2, "asaasdasd");
             },
