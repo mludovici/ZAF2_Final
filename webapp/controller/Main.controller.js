@@ -9,7 +9,7 @@ sap.ui.define([
 
         return Controller.extend("zaf2final.controller.Main", {
             onInit: function () {
-                alert("HELLO Moon!");
+                alert("HEASDLKALSDKLAKDSLA");
             }
         });
     });
