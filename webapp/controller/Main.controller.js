@@ -14,7 +14,7 @@ sap.ui.define([
 
                 oModel2.setData({
                     "movie": { "TEST"},
-                    "artist": {"Test Artist"}
+                    "artist": {"Artist Änderung Stefan"}
                 });
                 this.getView().setModel(oModel2, "asaasdasd");
             },
