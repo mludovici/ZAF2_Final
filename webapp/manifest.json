@@ -57,6 +57,12 @@
         "settings": {
           "bundleName": "zaf2final.i18n.i18n"
         }
+      },
+      "bikesModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "preload": false,
+        "uri": "model/bikeModel.json"
       }
     },
     "resources": {

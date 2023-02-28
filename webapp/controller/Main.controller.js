@@ -9,7 +9,11 @@ sap.ui.define([
 
         return Controller.extend("zaf2final.controller.Main", {
             onInit: function () {
-
+                this.o_bikesModel = this.getView().getModel("bikesModel");
+                this.getView().setModel(this.o_bikesModel, "bikesModel");
             },
+            onItemPressed: function () {
+                alert("bike item pressed!");
+            }
         });
     });

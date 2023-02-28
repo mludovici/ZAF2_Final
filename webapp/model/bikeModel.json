@@ -1,0 +1,28 @@
+{
+    "bikes": [
+        {
+            "modelID": 1,
+            "model": "Bike Casual",
+            "price": 699,
+            "description": "Du willst den für das Casual typischen Fahrspaß, dir genügt aber weniger Federweg? Dann ist das Casual mit seiner progressiven Geometrie und der robusten Ausstattung genau dein Bike.",
+            "inStock": 399,
+            "imgUrl": "https://www.shutterstock.com/shutterstock/photos/1498702814/display_1500/stock-photo-yellow-black-er-mountainbike-with-thick-offroad-tyres-bicycle-mtb-cross-country-aluminum-1498702814.jpg"
+        },
+        {
+            "modelID": 2,
+            "model": "Bike Superior",
+            "price": 999,
+            "description": "Dieses Fahrrad unterstützt dich auf deinen täglichen Fahrten in der Stadt und auf Landstraßen. Es ist dynamisch und ideal für lange Strecken mit Steigungen. Du bist auf der Suche nach einem leichten, dynamischen E-Bike? Mit seinem 504 Wh Akku, dem kraftvollen Motor mit Leistungssensor und dem hohen Trittkomfort bietet dieses Rad erstklassigen Komfort.",
+            "inStock": 500,
+            "imgUrl": "https://t3.ftcdn.net/jpg/01/06/83/40/240_F_106834048_5AkrxqOKfgpcd5GYMgF8OxudsDgJIKND.jpg"
+        },
+        {
+            "modelID": 3,
+            "model": "Bike PRO",
+            "price": 1499,
+            "description": "Von den anfänglichen wackeligen Balance-Versuchen bis hin zur ersten eigenverantwortlichen Radtour bietet das Bike PRO als zuverlässiges Kinderrad den perfekte Einstieg in die spannende Welt des Fahrradfahrens. Tragfähig und gewissenhaft fängt die eingebaute Gabel Untergrundunebenheiten und Stöße eindrucksvoll ab.",
+            "inStock": 239,
+            "imgUrl": "https://t3.ftcdn.net/jpg/02/34/95/64/240_F_234956425_JFdJ1zSitfgwvJx5TD9xbXlOBOTgeqKn.jpg"
+        }
+    ]
+}

@@ -1,7 +1,60 @@
-<mvc:View controllerName="zaf2final.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+<mvc:View controllerName="zaf2final.controller.Main" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
+    <Page id="Main" showNavButton="true" title="{i18n>title}">
+        <SplitApp id="SplitApp">
+            <masterPages>
+                <Page id="mainBikeList">
+                    <content>
+                        <!-- <l:VerticalLayout width="100%" id="masterTest"> -->
+                        <!-- <VBox id="headerListItems">
+                                <Hbox>
+                                    <Button width="10px" id="resetFilter" icon="sap-icon://clear-filter" press="onResetFilter" />
+                                    <Button width="10px" id="__button1" icon="sap-icon://sort-ascending" press="onSortAsc" />
+                                    <Button width="10px" id="__button2" icon="sap-icon://sort-descending" press="onSortDesc" />
+                                </HBox>
+                            </VBox> -->
+                        <List id="bikeOverviewList" items="{bikesModel>/bikes}" width="100%">
+                            <headerToolbar width="100%">
+                                <OverflowToolbar>
+                                    <Title text="Bikes" level="H2" />
+                                    <ToolbarSpacer />
+                                    <MultiComboBox id="idSticky" placeholder="Sticky options" selectionFinish="onSelectionFinish" width="15%">
+                                        <items>
+                                            <core:Item text="Header Toolbar" key="HeaderToolbar" />
+                                            <core:Item text="Info Toolbar" key="InfoToolbar" />
+                                        </items>
+                                    </MultiComboBox>
+                                    <ToggleButton id="toggleInfoToolbar" text="Hide/Show InfoToolbar" press="onToggleInfoToolbar" />
+                                    <Button icon="sap-icon://settings" press="handleButtonPress" />
+                                    <Button icon="sap-icon://person-placeholder" press="handleButtonPress" />
+                                    <Button icon="sap-icon://drop-down-list" press="handleButtonPress" />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <items>
+                                <ObjectListItem id="item1" title="{bikesModel>model}" number="{bikesModel>price}" numberUnit="EUR" type="Active" press="onItemPressed">
+                                    <ObjectAttribute id="descAttr" text="{bikesModel>description}" />
+                                    <ObjectAttribute id="inStockAttr" text="{i18n>inStock} : {bikesModel>inStock}" />
+                                    <!-- <firstStatus>
+                                            <ObjectStatus id="bikeStatus" text="Status: " state="{
+                                                path:'bikesModel>inStock'
+                                            }" />
+                                        </firstStatus> -->
+                                </ObjectListItem>
+                            </items>
+                        </List>
+                        <!-- </l:VerticalLayout> -->
+                    </content>
+                </Page>
+            </masterPages>
+            <detailPages>
+                <Page id="detailList">
+                    <!-- <headerContent>
+                        <Button icon="sap-icon://cart" press="navToCart" />
+                    </headerContent> -->
+                    <content>
+                        <!-- <c:Fragment fragmentName= "qst4.view.ProductDetail" type="XML" /> -->
+                    </content>
+                </Page>
+            </detailPages>
+        </SplitApp>
     </Page>
 </mvc:View>
