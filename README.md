@@ -20,7 +20,7 @@ HIER STEHT DIE ÄNDERUNG
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 
-##ÄNDERUNG AN TEST
+##Das hier wurde von Stefan geändert
 
 ## zaf2_final
 
