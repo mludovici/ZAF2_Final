@@ -1,0 +1,88 @@
+<c:FragmentDefinition
+    xmlns:f="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout"
+    xmlns:c="sap.ui.core"
+    xmlns:table="sap.ui.table"
+    xmlns="sap.m">
+ 
+    <Page title="Modelldetails" id="det1" showHeader="true" showFooter="true">
+                <content>
+ 
+                    <f:SimpleForm editable="true" backgroundDesign="Transparent">
+                        <Text text="Modell 3" class="Header"/>
+                    </f:SimpleForm>
+ 
+                    <layout:BlockLayout background="Default" visible="true">
+                        <layout:content>
+ 
+                            <layout:BlockLayoutRow scrollable="false">
+                                <layout:content>
+ 
+                                    <layout:BlockLayoutCell id="name" width="1">
+                                        <layout:content>
+                                            <layout:VerticalLayout width="100%" id="layout0">
+                                                <Image width="100%" id="idImg1" src="https://www.mediaevent.de/html/img/statue-florenz-980.webp"/>
+                                                <HBox>
+                                                <Label text="Preis:" class="LabelCellPreis"/>
+                                                <Text  text="22,55€" class="TextCellPreis"/>
+                                                </HBox>
+                                                <HBox>
+                                                <Label text="Farbe:" class="LabelCellPreis"/>
+                                                <Text  text="Blau" class="TextCellPreis"/>
+                                                </HBox>
+                                                <Label width="100%" text="Beschreibung" class="LabelCellBesch"/>
+                                                <Text  text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                                                            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr." class="TextCellBesch"/>
+                                            </layout:VerticalLayout>
+                                        </layout:content>
+                                    </layout:BlockLayoutCell>
+ 
+                                    <layout:BlockLayoutCell width="1">
+                                        <layout:VerticalLayout width="100%" id="layout1">
+                                            <Label text="Teileliste" class="LabelCellTeile"/>
+                                        </layout:VerticalLayout>
+                                        <Table id="TabTeileListe"
+                                               items="{
+                                                   path: '/ProductCollection'
+                                                }">
+                                            <columns>
+                                                <Column width="12em">
+                                                    <Text text="Teil" />
+                                                </Column>
+                                                <Column width="12em">
+                                                    <Text text="Preis" />
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <ObjectIdentifier title="{Teil}" />
+                                                        <Text text="{Preis}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </layout:BlockLayoutCell>
+ 
+                                </layout:content>
+                            </layout:BlockLayoutRow>
+ 
+                        </layout:content>
+                    </layout:BlockLayout>
+                </content>
+                <footer>
+                    <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                        <content>
+                            <ToolbarSpacer width=""/>
+                            <Text text="Warenkorbsumme: " />
+                            <Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
+                                                valueStateText="Invalid entry" maxLength="0"/>
+                        </content>
+                    </OverflowToolbar>
+                </footer>
+                <headerContent/>
+            </Page>
+ 
+   
+ 
+</c:FragmentDefinition>
