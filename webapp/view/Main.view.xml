@@ -5,6 +5,9 @@
 		  xmlns:f="sap.ui.layout.form" 
 		  xmlns:layout="sap.ui.layout" 
 		  xmlns:c="sap.ui.core">
+           <Page id="Main" showNavButton="true" title="{i18n>title}">
+        <content>
+            <c:Fragment id="headerFragment" fragmentName="zaf2final.view.Header" type="XML" />
     <SplitApp id="split">
         <masterPages>
 			<Page title="Modellübersicht">
@@ -125,4 +128,6 @@
 		
 		</detailPages>
 	</SplitApp>
+        </content>
+    </Page>
 </mvc:View>
