@@ -1,0 +1,63 @@
+<c:FragmentDefinition xmlns:c="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml">
+    <content>
+        <f:SimpleForm editable="true" backgroundDesign="Transparent">
+            <Text text="Modell 3" class="Header" />
+        </f:SimpleForm>
+
+        <layout:BlockLayout background="Default" visible="true">
+            <layout:content>
+                <layout:BlockLayoutRow scrollable="false">
+                    <layout:content>
+                        <layout:BlockLayoutCell id="name" width="1">
+                            <layout:content>
+                                <layout:VerticalLayout width="100%" id="layout0">
+                                    <Image width="100%" id="idImg1" src="https://www.mediaevent.de/html/img/statue-florenz-980.webp" />
+                                    <HBox>
+                                        <Label text="Preis:" class="LabelCellPreis" />
+                                        <Text text="22,55€" class="TextCellPreis" />
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="Farbe:" class="LabelCellPreis" />
+                                        <Text text="Blau" class="TextCellPreis" />
+                                    </HBox>
+                                    <Label width="100%" text="Beschreibung" class="LabelCellBesch" />
+                                    <Text
+                                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+                                                            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr."
+                                        class="TextCellBesch"
+                                    />
+                                </layout:VerticalLayout>
+                            </layout:content>
+                        </layout:BlockLayoutCell>
+
+                        <layout:BlockLayoutCell width="1">
+                            <layout:VerticalLayout width="100%" id="layout1">
+                                <Label text="Teileliste" class="LabelCellTeile" />
+                            </layout:VerticalLayout>
+                            <Table id="TabTeileListe" items="{
+                                                   path: '/ProductCollection'
+                                                }">
+                                <columns>
+                                    <Column width="12em">
+                                        <Text text="Teil" />
+                                    </Column>
+                                    <Column width="12em">
+                                        <Text text="Preis" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{Teil}" />
+                                            <Text text="{Preis}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </layout:BlockLayoutCell>
+                    </layout:content>
+                </layout:BlockLayoutRow>
+            </layout:content>
+        </layout:BlockLayout>
+    </content>
+</c:FragmentDefinition>

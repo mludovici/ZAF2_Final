@@ -14,9 +14,11 @@ sap.ui.define([
         "use strict";
 
         var Produktgesamtpreis = 0;
-
+        let _oRouter = null;
         return Controller.extend("zaf2final.controller.Main", {
 				onInit: function () {
+                    _oRouter = this.getOwnerComponent().getRouter();
+                    _oRouter.navTo("createModel");
 				},
 
 			handleMessageToastPress: function(oEvent) {
@@ -149,7 +151,11 @@ sap.ui.define([
 				//var gesamt = anzahl * preis;
 				var Produktgesamtpreis = anzahl * preis;			
 				this.getView().byId("gesamt1").setValue(Produktgesamtpreis);
-			}
+			},
+
+            onPressDropDown: function() {
+               
+            }
 				
 			
 		

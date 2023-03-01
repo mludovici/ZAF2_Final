@@ -102,6 +102,13 @@
           "target": [
             "TargetMain"
           ]
+        },
+        {
+          "name": "CreateModel",
+          "pattern": "newModel",
+          "target": [
+            "TargetCreateModel"
+          ]
         }
       ],
       "targets": {
@@ -110,6 +117,13 @@
           "transition": "slide",
           "clearControlAggregation": false,
           "viewId": "Main",
+          "viewName": "Main"
+        },
+        "TargetCreateModel": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "c",
           "viewName": "Main"
         }
       }

@@ -6,7 +6,7 @@
                 <HBox id="rightSideItems" width="20%" justifyContent="End">
                     <Button press="navigateToAbout" id="about" text="Fahrrad bauen" />
                     <Button press="navigateToProfile" id="profile" text="Lagerverwaltung" />
-                    <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="navToTable" />
+                    <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="onPressDropDown" />
                 </HBox>
             </HBox>
         </l:content>
