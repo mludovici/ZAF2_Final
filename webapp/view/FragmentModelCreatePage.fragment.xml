@@ -1,29 +1,20 @@
 <c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
-    <Page title="Modell hinzufügen" id="det2" showHeader="true" showFooter="true">
+    <Page title="Modell hinzufügen" showHeader="true" showFooter="true">
 
-            <layout:BlockLayout background="Default" visible="true">
-                <layout:content>
+            <layout:HorizontalLayout background="Default" visible="true">
+                
                     <f:SimpleForm editable="true" backgroundDesign="Transparent">
 
                         <Text text="Neues Modell erstellen" class="Header" />
 
                     </f:SimpleForm>
 
-                    <layout:BlockLayout background="Default" visible="true">
 
-                        <!-- <layout:content> -->
-
-                        <layout:BlockLayoutRow scrollable="false">
-
-                            <!-- <layout:content> -->
-
-                            <layout:BlockLayoutCell title="Modell-Spezifikation">
-                                   <layout:content>
                                 <f:SimpleForm editable="true" backgroundDesign="Transparent">
 
                                     <Label text="Modellname" required="true" />
 
-                                    <Input value="{Modellname}" />
+                                    <Input id="in_modellname" value="{Modellname}" />
 
                                     <Label text="Image Url" required="true" />
 
@@ -51,13 +42,10 @@
 
                                 <HBox width="100%" justifyContent="End">
 
-                                    <Button text="Modell erstellen" icon="sap-icon://add-coursebook" />
+                                    <Button press="onPressModelCreate" text="Modell erstellen" icon="sap-icon://add-coursebook" />
 
                                 </HBox>
-  </layout:content>
-                            </layout:BlockLayoutCell>
 
-                            <layout:BlockLayoutCell width="1">
 
                                 <layout:VerticalLayout width="100%" id="createModelNeededParts">
 
@@ -101,11 +89,6 @@
 
                                 </Table>
 
-                            </layout:BlockLayoutCell>
-
-                            <!-- </layout:content> -->
-
-                        </layout:BlockLayoutRow>
 
                         <!-- <layout:BlockLayoutRow>                                    
                         <layout:BlockLayoutCell width="1">                                        
@@ -117,9 +100,6 @@
 
                         <!-- </layout:content> -->
 
-                    </layout:BlockLayout>
-                </layout:content>
-            </layout:BlockLayout>
-
+</layout:HorizontalLayout>
    </Page> 
 </c:FragmentDefinition>

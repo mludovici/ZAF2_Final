@@ -95,7 +95,14 @@ sap.ui.define([
                 }).then(function(oFragment) { 
                     that.getView().byId("dp1").insertContent(oFragment);
                 });
-            }
+            },
+
+			onPressModelCreate: function(){
+				this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
+																						Modellname: 'Modellnametest' } });
+
+				this.getView().getModel().submitChanges();																		
+			}
 			
 		});
 	});
