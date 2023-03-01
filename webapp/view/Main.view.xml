@@ -16,14 +16,15 @@
 					<headerToolbar>
 						<Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
 							<content>
-								<VBox>
+								<VBox width="100%">
 									<SearchField placeholder="Suche" showSearchButton="true" visible="true" width="auto" search="onSearch"/>
-									<HBox>
+									<HBox width="100%">
 									<Select forceSelection="false" items="{/Categories}" change="onChange">
 										<c:ListItem text="{Name}"/>
 									</Select>
 									<Button press="onClearFilter" icon="sap-icon://clear-filter"/>
 									</HBox>
+									<Button text="Modell Hinzufügen" id="addBtn" icon="sap-icon://add" width="100%"/>
 								</VBox>
 							</content>
 						</Toolbar>
