@@ -78,5 +78,6 @@ sap.ui.define([
 				var Produktgesamtpreis = anzahl * preis;
 				this.getView().byId("gesamt1").setValue(Produktgesamtpreis);
 			}
+			
 		});
 	});

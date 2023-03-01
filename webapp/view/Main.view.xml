@@ -24,7 +24,7 @@
 									</Select>
 									<Button press="onClearFilter" icon="sap-icon://clear-filter"/>
 									</HBox>
-									<Button text="Modell Hinzufügen" id="addBtn" icon="sap-icon://add" width="100%"/>
+									<Button text="Modell Hinzufügen" press ="hinzufügen" id="addBtn" icon="sap-icon://add" width="100%"/>
 								</VBox>
 							</content>
 						</Toolbar>
