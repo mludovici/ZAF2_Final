@@ -11,14 +11,23 @@
 						<Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
 							<content>
 								<VBox width="100%">
-									<SearchField placeholder="Suche" showSearchButton="true" visible="true" width="auto" search="onSearch"/>
-									<HBox width="100%">
-									<Select forceSelection="false" items="{/Categories}" change="onChange">
-										<c:ListItem text="{Name}"/>
-									</Select>
+                                    <Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/>
+									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
+									<HBox width="100%" justifyContent="End" alignItems="Stretch">
+									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onSelectionChange" >
+                                    <layoutData>
+                                        <FlexItemData growFactor="4" />
+                                    </layoutData>
+                                        <c:ListItem id="0" text="" />
+                                        <c:ListItem id="1" text="Modellname" />
+                                        <c:ListItem id="2" text="Preis" />
+                                        <c:ListItem id="3" text="Bestand" />
+                                    </Select>
 									<Button press="onClearFilter" icon="sap-icon://clear-filter"/>
+                                    <Button width="10px" id="__button1" icon="sap-icon://sort-ascending" press="onSortAsc" />
+                                    <Button width="10px" id="__button2" icon="sap-icon://sort-descending" press="onSortDesc" />
 									</HBox>
-									<Button text="Modell Hinzufügen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%"/>
+									
 								</VBox>
 							</content>
 						</Toolbar>

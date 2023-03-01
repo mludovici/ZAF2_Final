@@ -28,11 +28,11 @@
 
                                     <Input value="{Farbe}" />
 
-                                    <!-- <Select id="createModelColors">                                                
-                                    <core:Item text="Schwarz" key="black" />                                                
-                                    <core:Item text="Rot" key="red" />                                                
-                                    <core:Item text="Blau" key="blue" />                                            
-                                    </Select> -->
+                                   <Select id="colorSelect" width="auto" change="onSelectColor">
+                                        <c:ListItem id="black" text="Schwarz" />
+                                        <c:ListItem id="red" text="Rot" />
+                                        <c:ListItem id="blue" text="Blau" />
+                                    </Select>
 
                                     <Label text="Beschreibung" />
 
