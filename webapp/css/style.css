@@ -30,3 +30,15 @@
 .TextCellBesch{
     font-size: 20px;
 }
+
+.TextTabelleMasterPage{
+    margin: 5px;
+}
+
+.ButtonHeader{
+    margin-right: 20px;
+}
+
+.ButtonHeaderDropDown{
+    margin-right: 35px;
+}
