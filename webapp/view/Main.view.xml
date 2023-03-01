@@ -5,7 +5,7 @@
     <SplitApp id="split">
         <masterPages>
 			<Page title="Modellübersicht">
-				<Table id="modelTable" growing="true" growingThreshold="5" items="{ path: '/FahrradmodellSet', sorter: { path: 'Modellname' } }"
+				<Table id="modelTable" growing="true" growingThreshold="5" items="{ path: '/FahrradmodellSet', sorter: { path: 'Modellname' }  }"
 					selectionChange="onSelectionChange" mode="SingleSelectMaster">
 					<headerToolbar>
 						<Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
@@ -37,7 +37,7 @@
 								<ObjectIdentifier title="{Modellname}"/>
 								<VBox>
 								<Text text="{Preis} €" class="TextTabelleMasterPage"/>
-								<Text text="100 Stk" class="TextTabelleMasterPage"/>
+								<Text text="{}" class="TextTabelleMasterPage"/>
 								</VBox>
 							</cells>
 						</ColumnListItem>

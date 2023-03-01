@@ -21,14 +21,14 @@
                                     <layout:BlockLayoutCell id="name" width="1">
                                         <layout:content>
                                             <layout:VerticalLayout width="100%" id="layout0">
-                                                <Image width="100%" id="idImg1" src="https://www.mediaevent.de/html/img/statue-florenz-980.webp"/>
+                                                <Image width="100%" id="idImg1" src="{Url}"/>
                                                 <HBox>
                                                 <Label text="Preis:" class="LabelCellPreis"/>
                                                 <Text  text="{Preis}" class="TextCellPreis"/>
                                                 </HBox>
                                                 <HBox>
                                                 <Label text="Farbe:" class="LabelCellPreis"/>
-                                                <Text  text="Blau" class="TextCellPreis"/>
+                                                <Text  text="{Farbe}" class="TextCellPreis"/>
                                                 </HBox>
                                                 <Label width="100%" text="Beschreibung" class="LabelCellBesch"/>
                                                 <Text  text="{Beschreibung}" class="TextCellBesch"/>
@@ -42,21 +42,25 @@
                                         </layout:VerticalLayout>
                                         <Table id="TabTeileListe"
                                                items="{
-                                                   path: '/ProductCollection'
+                                                   path: 'ToFahrradmodellEinzelteil',
+                                                   parameters: {
+                                                        expand: 'ToEinzelteil'
+                                                   }
+                                                   
                                                 }">
                                             <columns>
                                                 <Column width="12em">
-                                                    <Text text="Teil" />
+                                                    <Text text="Bestandteile" />
                                                 </Column>
                                                 <Column width="12em">
-                                                    <Text text="Preis" />
+                                                    <Text text="Menge" />
                                                 </Column>
                                             </columns>
                                             <items>
                                                 <ColumnListItem>
                                                     <cells>
-                                                        <ObjectIdentifier title="{Teil}" />
-                                                        <Text text="{Preis}" />
+                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                        <Text text="{Anzahl}" />
                                                     </cells>
                                                 </ColumnListItem>
                                             </items>

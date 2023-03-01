@@ -67,6 +67,7 @@
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
           "bundleName": "zaf2final.i18n.i18n"
+          
         }
       },
       "": {
@@ -75,6 +76,7 @@
         "settings": {
           "useBatch": false,
           "defaultBindingMode": "TwoWay"
+          
         }
       }
     },
