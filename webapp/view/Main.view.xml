@@ -18,7 +18,7 @@
 									</Select>
 									<Button press="onClearFilter" icon="sap-icon://clear-filter"/>
 									</HBox>
-									<Button text="Modell Hinzufügen" press ="hinzufügen" id="addBtn" icon="sap-icon://add" width="100%"/>
+									<Button text="Modell Hinzufügen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%"/>
 								</VBox>
 							</content>
 						</Toolbar>
@@ -45,7 +45,7 @@
 				</Table>
 			</Page>
 	</masterPages>
-		<detailPages>
+		<detailPages id="detailPage">
 			<Page id="dp1" showHeader="false" showFooter="true">
 				<footer>
 					<OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">

@@ -61,12 +61,13 @@ sap.ui.define([
 				// add filter for search
 				var aFilters = [];
 				var sQuery = oEvent.getSource().getValue();
+                debugger;
 				if (sQuery && sQuery.length > 0) {
-					var filter = new Filter("Name", FilterOperator.Contains, sQuery);
+					var filter = new Filter("Modellname", FilterOperator.Contains, sQuery);
 					aFilters.push(filter);
 				}
 				// update list binding
-				var oTable = this.byId("productTable");
+				var oTable = this.byId("modelTable");
 				var oBinding = oTable.getBinding("items");
 				oBinding.filter(aFilters, "Application");
 			},
@@ -79,7 +80,20 @@ sap.ui.define([
 				 //var gesamt = anzahl * preis;
 				var Produktgesamtpreis = anzahl * preis;
 				this.getView().byId("gesamt1").setValue(Produktgesamtpreis);
-			}
+			},
+
+            onCreateModel: function() {
+				 var oView = this.getView();
+				 var that = this;
+				 oView.byId('dp1').destroyContent();
+                
+                 Fragment.load({
+                    name: "zaf2final.view.FragmentModelCreatePage",               
+                    controller: this
+                }).then(function(oFragment) { 
+                    that.getView().byId("dp1").insertContent(oFragment);
+                });
+            }
 			
 		});
 	});
