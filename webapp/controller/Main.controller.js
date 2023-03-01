@@ -47,11 +47,13 @@ sap.ui.define([
 				 
 				 var oView = this.getView();
 				 var that = this;
+				 oView.byId('dp1').destroyContent();
 				 Fragment.load({
 					 name: "zaf2final.view.FragmentModelDetailPage",
 					 controller: this
 				 }).then(function(oFragment){ oFragment.bindElement(sPath);
 					 that.getView().byId("dp1").insertContent(oFragment);
+					 oFragment.bindElement(sPath);
 				 });
 			},
 			

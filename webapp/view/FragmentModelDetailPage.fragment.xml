@@ -9,7 +9,7 @@
                 <content>
  
                     <f:SimpleForm editable="true" backgroundDesign="Transparent">
-                        <Text text="Modell 3" class="Header"/>
+                        <Text text="{Modellname}" class="Header"/>
                     </f:SimpleForm>
  
                     <layout:BlockLayout background="Default" visible="true">
@@ -24,15 +24,14 @@
                                                 <Image width="100%" id="idImg1" src="https://www.mediaevent.de/html/img/statue-florenz-980.webp"/>
                                                 <HBox>
                                                 <Label text="Preis:" class="LabelCellPreis"/>
-                                                <Text  text="22,55€" class="TextCellPreis"/>
+                                                <Text  text="{Preis}" class="TextCellPreis"/>
                                                 </HBox>
                                                 <HBox>
                                                 <Label text="Farbe:" class="LabelCellPreis"/>
                                                 <Text  text="Blau" class="TextCellPreis"/>
                                                 </HBox>
                                                 <Label width="100%" text="Beschreibung" class="LabelCellBesch"/>
-                                                <Text  text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-                                                            At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr." class="TextCellBesch"/>
+                                                <Text  text="{Beschreibung}" class="TextCellBesch"/>
                                             </layout:VerticalLayout>
                                         </layout:content>
                                     </layout:BlockLayoutCell>
