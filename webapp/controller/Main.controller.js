@@ -18,6 +18,7 @@ sap.ui.define([
         return Controller.extend("ZAF2_Final.controller.Main", {
 				onInit: function () {
 					this.init();
+					
 				},
 
 				init:function(){
@@ -54,6 +55,7 @@ sap.ui.define([
 				 }).then(function(oFragment){ oFragment.bindElement(sPath);
 					 that.getView().byId("dp1").insertContent(oFragment);
 					 oFragment.bindElement(sPath);
+					 
 				 });
 			},
 			
