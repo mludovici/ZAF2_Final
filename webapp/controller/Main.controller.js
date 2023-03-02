@@ -91,9 +91,12 @@ sap.ui.define([
                 
                  Fragment.load({
                     name: "zaf2final.view.FragmentModelCreatePage",               
-                    controller: this
+                    controller: this,
+					id: 'test'
                 }).then(function(oFragment) { 
                     that.getView().byId("dp1").insertContent(oFragment);
+					//var oEinzelteilListe = sap.ui.getCore().byId("test--CreateTabTeileListe");
+					//oEinzelteilListe.bindElement("/EinzelteilSet");
                 });
             },
 

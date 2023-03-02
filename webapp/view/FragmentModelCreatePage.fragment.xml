@@ -46,7 +46,7 @@
 
                             <layout:BlockLayoutCell width="1">
                                 <layout:VerticalLayout width="100%">
-                                     <Table id="CreateTabTeileListe" items="{path: 'ToFahrradmodellEinzelteil'}">
+                                     <Table id="CreateTabTeileListe" items="{/EinzelteilSet}">
                                         <columns>
                                             <Column width="12em">
                                                 <Text text="Teil" />
@@ -58,7 +58,7 @@
                                         <items>
                                         <ColumnListItem>
                                             <cells>
-                                                <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                <ObjectIdentifier title="{Einzelteilname}" />
                                                 <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
                                         </ColumnListItem>
