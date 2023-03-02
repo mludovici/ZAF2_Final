@@ -19,13 +19,13 @@
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <Label text="Modellname" required="true" />
-                                    <Input id="in_modellname" value="{Modellname}" />
+                                    <Input id="in_modellname" />
                                     <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
-                                    <Input value="{Url}" />
+                                    <Input id="in_url" />
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
-                                    <Input value="{Preis}" />
+                                    <Input id="in_preis" />
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
-                                    <Input value="{Farbe}" />
+                                    <Input id="in_farbe" />
 
                                    <Select id="colorSelect" width="auto" change="onSelectColor">
                                         <c:ListItem id="black" text="Schwarz" />
@@ -35,7 +35,7 @@
 
                                     <Label text="Beschreibung" />
 
-                                    <TextArea placeholder="Beschreibung..." maxLength="400" width="100%" />
+                                    <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" />
                                     <layout:HorizontalLayout class="ModelCreatePageButton">
                                         <u:FileUploader
                                             id="fileUploader"
@@ -54,10 +54,10 @@
 
                             <layout:BlockLayoutCell width="1">
                                 <layout:VerticalLayout width="100%">
-                                     <Table id="CreateTabTeileListe" items="{path: 'ToFahrradmodellEinzelteil'}">
+                                     <Table id="CreateTabTeileListe" items="{/EinzelteilSet}">
                                         <columns>
                                             <Column width="12em">
-                                                <Text text="Teil" />
+                                                <Text text="Name" />
                                             </Column>
                                             <Column width="12em">
                                                 <Text text="Anzahl" />
@@ -66,7 +66,7 @@
                                         <items>
                                         <ColumnListItem>
                                             <cells>
-                                                <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                <ObjectIdentifier title="{Einzelteilname}" />
                                                 <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
                                         </ColumnListItem>
