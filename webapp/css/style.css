@@ -42,3 +42,16 @@
 .ButtonHeaderDropDown{
     margin-right: 35px;
 }
+
+.ModelCreatePageLabel{
+    margin-top: 15px;
+}
+
+.ModelCreatePageButton{
+    margin-top: 30px;
+    width: 100%;
+}
+
+.ModelCreatePageButtonUpload{
+    margin-left: 5px;
+}

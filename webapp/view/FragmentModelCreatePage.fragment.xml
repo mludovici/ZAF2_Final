@@ -1,105 +1,78 @@
-<c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
+<c:FragmentDefinition xmlns:f="sap.ui.layout.form" 
+                      xmlns:layout="sap.ui.layout" 
+                      xmlns:c="sap.ui.core" 
+                      xmlns:table="sap.ui.table" 
+                      xmlns="sap.m"
+                      xmlns:u="sap.ui.unified">
+    
     <Page title="Modell hinzufügen" showHeader="true" showFooter="true">
+        <content>
+            <f:SimpleForm editable="true" backgroundDesign="Transparent">
+                <Text text="Neues Modell erstellen" class="Header" />
+            </f:SimpleForm>
+            <layout:BlockLayout background="Default" visible="true">
+                <layout:content>
 
-            <layout:HorizontalLayout background="Default" visible="true">
-                
-                    <f:SimpleForm editable="true" backgroundDesign="Transparent">
+                    <layout:BlockLayoutRow scrollable="false">
+                        <layout:content>
 
-                        <Text text="Neues Modell erstellen" class="Header" />
-
-                    </f:SimpleForm>
-
-
-                                <f:SimpleForm editable="true" backgroundDesign="Transparent">
-
+                            <layout:BlockLayoutCell width="1">
+                                <layout:content>
                                     <Label text="Modellname" required="true" />
-
                                     <Input id="in_modellname" value="{Modellname}" />
-
-                                    <Label text="Image Url" required="true" />
-
+                                    <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
                                     <Input value="{Url}" />
-
-                                    <Label text="Preis" />
-
+                                    <Label text="Preis" class="ModelCreatePageLabel"/>
                                     <Input value="{Preis}" />
-
-                                    <Label text="Farbe" />
-
+                                    <Label text="Farbe" class="ModelCreatePageLabel"/>
                                     <Input value="{Farbe}" />
-
-                                    <!-- <Select id="createModelColors">                                                
-                                    <core:Item text="Schwarz" key="black" />                                                
-                                    <core:Item text="Rot" key="red" />                                                
-                                    <core:Item text="Blau" key="blue" />                                            
-                                    </Select> -->
-
-                                    <Label text="Beschreibung" />
-
+                                    <Label text="Beschreibung" class="ModelCreatePageLabel"/>
                                     <TextArea placeholder="Beschreibung..." maxLength="400" width="100%" />
+                                    <layout:HorizontalLayout class="ModelCreatePageButton">
+                                        <u:FileUploader
+                                            id="fileUploader"
+                                            name="myFileUpload"
+                                            uploadUrl="upload/"
+                                            tooltip="Upload your file to the local server"
+                                            uploadComplete="handleUploadComplete"/>
+                                        <Button
+                                            text="Upload File"
+                                            press="handleUploadPress"
+                                            class="ModelCreatePageButtonUpload" />
+                                    </layout:HorizontalLayout>
+                                    <Button press="onPressModelCreate" text="Modell erstellen" icon="sap-icon://add-coursebook" class="ModelCreatePageButton"/>
+                                </layout:content>
+                            </layout:BlockLayoutCell>
 
-                                </f:SimpleForm>
-
-                                <HBox width="100%" justifyContent="End">
-
-                                    <Button press="onPressModelCreate" text="Modell erstellen" icon="sap-icon://add-coursebook" />
-
-                                </HBox>
-
-
-                                <layout:VerticalLayout width="100%" id="createModelNeededParts">
-
-                                    <Label text="Notwendige Teile" class="LabelCellTeile" />
-
-                                </layout:VerticalLayout>
-
-                                <Table id="CreateTabTeileListe" items="{path: '/ProductCollection' }">
-
-                                    <columns>
-
-                                        <Column width="12em">
-
-                                            <Text text="Teil" />
-
-                                        </Column>
-
-                                        <Column width="12em">
-
-                                            <Text text="Preis" />
-
-                                        </Column>
-
-                                    </columns>
-
-                                    <items>
-
+                            <layout:BlockLayoutCell width="1">
+                                <layout:VerticalLayout width="100%">
+                                     <Table id="CreateTabTeileListe" items="{path: 'ToFahrradmodellEinzelteil'}">
+                                        <columns>
+                                            <Column width="12em">
+                                                <Text text="Teil" />
+                                            </Column>
+                                            <Column width="12em">
+                                                <Text text="Anzahl" />
+                                            </Column>
+                                        </columns>
+                                        <items>
                                         <ColumnListItem>
-
                                             <cells>
-
-                                                <ObjectIdentifier title="{Teil}" />
-
-                                                <Text text="{Preis}" />
-
+                                                <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
-
                                         </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </layout:VerticalLayout>
+                                
+                            </layout:BlockLayoutCell>
 
-                                    </items>
+                        </layout:content>
+                    </layout:BlockLayoutRow>
 
-                                </Table>
-
-
-                        <!-- <layout:BlockLayoutRow>                                    
-                        <layout:BlockLayoutCell width="1">                                        
-                        <HBox width="100%" justifyContent="End">                                            
-                        <Button text="Modell erstellen" icon="sap-icon://add-coursebook" />                                        
-                        </HBox>                                    
-                        </layout:BlockLayoutCell>                                
-                        </layout:BlockLayoutRow> -->
-
-                        <!-- </layout:content> -->
-
-</layout:HorizontalLayout>
+                </layout:content>
+            </layout:BlockLayout>
+        </content>
    </Page> 
 </c:FragmentDefinition>
