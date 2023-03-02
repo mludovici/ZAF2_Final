@@ -1,7 +1,13 @@
-<mvc:View controllerName="zaf2final.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core">
-    <Page id="Main" showNavButton="true" title="{i18n>title}">
-        <content>
-            <c:Fragment id="headerFragment" fragmentName="zaf2final.view.Header" type="XML" />
+<mvc:View controllerName="zaf2final.controller.Main" 
+		  xmlns:mvc="sap.ui.core.mvc" 
+		  xmlns:table="sap.ui.table" 
+		  xmlns="sap.m" 
+		  xmlns:f="sap.ui.layout.form" 
+		  xmlns:layout="sap.ui.layout" 
+		  xmlns:c="sap.ui.core">
+    <!-- <Page id="Main" showNavButton="false" title="{i18n>title}">
+        <content> -->
+            <!-- <c:Fragment id="headerFragment" fragmentName="zaf2final.view.Header" type="XML" /> -->
     <SplitApp id="split">
         <masterPages>
 			<Page title="Modellübersicht">
@@ -46,7 +52,7 @@
 								<ObjectIdentifier title="{Modellname}"/>
 								<VBox>
 								<Text text="{Preis} €" class="TextTabelleMasterPage"/>
-								<Text text="{}" class="TextTabelleMasterPage"/>
+								<Text id ="test" text="{}" class="TextTabelleMasterPage"/>
 								</VBox>
 							</cells>
 						</ColumnListItem>
@@ -55,22 +61,21 @@
 			</Page>
 	</masterPages>
 		<detailPages id="detailPage">
-			<Page id="dp1" showHeader="false" showFooter="true">
-				<footer>
-					<OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
-						<content>
-							<ToolbarSpacer width=""/>
-							<Text text="Warenkorbsumme: " /> 
-							<Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
-												valueStateText="Invalid entry" maxLength="0"/>
-						</content>
-					</OverflowToolbar>
-				</footer>
-				<headerContent/>
+			
+			<Page>
+				 <headerContent>
+					<Button press="navigateToAbout" id="about" text="Modell erstellen" class="ButtonHeader"/>
+                    <Button press="onStockManagement" id="stock" text="Lagerverwaltung" class="ButtonHeader"/>
+					<Button press="onOrder" id="order" text="Bestellen" class="ButtonHeader"/>
+                    <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="navToTable" class="ButtonHeaderDropDown"/>
+				</headerContent>
+				<Page id="dp1" showHeader="false" showFooter="true">
+				
+				
+				</Page>
 			</Page>
-		
 		</detailPages>
 	</SplitApp>
-        </content>
-    </Page>
+        <!-- </content>
+    </Page> -->
 </mvc:View>

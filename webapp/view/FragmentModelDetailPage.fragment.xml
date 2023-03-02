@@ -8,30 +8,30 @@
 
             <layout:BlockLayout background="Default" visible="true">
                 <layout:content>
-                    <layout:BlockLayoutRow scrollable="false">
+                    <layout:BlockLayoutRow>
                         <layout:content>
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <layout:VerticalLayout width="100%" id="layout0">
                                         <Image width="100%" id="idImg1" src="{Url}" />
                                         <HBox>
-                                            <Label text="Preis:" class="LabelCellPreis" />
-                                            <Input value="{Preis}" id="input1" enabled="{settings>/edit}" class="TextCellPreis" />
+                                            <Label text="Preis:" class="sapUiTinyMarginTop" />
+                                            <Input value="{Preis}" id="input1" enabled="{settings>/edit}" class="sapUiSmallMarginBegin" />
                                         </HBox>
                                         <HBox>
-                                            <Label text="Farbe:" class="LabelCellPreis" />
-                                            <Input value="{Farbe}" id="input2" enabled="{settings>/edit}" class="TextCellPreis" />
+                                            <Label text="Farbe:" class="sapUiTinyMarginTop" />
+                                            <Input value="{Farbe}" id="input2" enabled="{settings>/edit}" class="sapUiSmallMarginBegin" />
                                         </HBox>
-                                        <Label width="auto" text="Beschreibung" class="LabelCellBesch" />
-                                        <Input value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="TextCellBesch" />
-                                        <Button text="Eintrag sichern" press="onEintragbearbeiten" />
+                                        <Label width="auto" text="Beschreibung" class="ModelDetailPageUeberschrBesch" />
+                                        <TextArea rows="5" width="100%" value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="sapUiSmallMarginTop" />
+                                        <Button text="Eintrag sichern" press="onEintragbearbeiten" class="ModelDetailPageSaveButton" />
                                     </layout:VerticalLayout>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 
                             <layout:BlockLayoutCell width="1">
                                 <layout:VerticalLayout width="100%" id="layout1">
-                                    <Label text="Teileliste" class="LabelCellTeile" />
+                                    <Label text="Teileliste" class="ModelDetailPageUeberschrTeile" />
                                 </layout:VerticalLayout>
                                 <Table
                                     id="TabTeileListe"
@@ -39,7 +39,8 @@
                                                    path: 'ToFahrradmodellEinzelteil',
                                                    parameters: {
                                                         expand: 'ToEinzelteil'
-                                                   }                                                   
+                                                   }
+                                                   
                                                 }"
                                 >
                                     <columns>
@@ -62,6 +63,7 @@
                             </layout:BlockLayoutCell>
                         </layout:content>
                     </layout:BlockLayoutRow>
+
                     <layout:BlockLayoutRow>
                         <layout:BlockLayoutCell>
                             <List
@@ -76,14 +78,14 @@
                                         }"
                             >
                                 <items>
-                                	<!-- <StandardListItem
+                                    <!-- <StandardListItem
                                     title="{ToLagerort/Ort}"
                                     description="{Typ}"
                                     icon="{ProductPicUrl}"
                                     iconDensityAware="false"
                                     iconInset="false" /> -->
                                     <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
-                                        <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}"  />
+                                        <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}" />
                                         <ObjectAttribute text="Bestand: {Bestand}" />
                                     </ObjectListItem>
                                 </items>
