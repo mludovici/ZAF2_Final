@@ -14,10 +14,10 @@
                                     <Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/>
 									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
 									<HBox width="100%" justifyContent="End" alignItems="Stretch">
-									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onSelectionChange" >
-                                    <layoutData>
-                                        <FlexItemData growFactor="4" />
-                                    </layoutData>
+									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onFilterItemsChange" >
+										<layoutData>
+											<FlexItemData growFactor="4" />
+										</layoutData>
                                         <c:ListItem id="0" text="" />
                                         <c:ListItem id="1" text="Modellname" />
                                         <c:ListItem id="2" text="Preis" />

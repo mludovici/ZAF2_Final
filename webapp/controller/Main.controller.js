@@ -134,15 +134,14 @@ sap.ui.define([
                 this.getView().byId("modelTable").getBinding("items").filter(null);
             },
 
-            onSelectionChange: function(oEvent) {
-                debugger;
+            onFilterItemsChange: function(oEvent) {
+               
                 sortCriteria = oEvent.getParameter("selectedItem").getText();
             },
 
             onSortAsc: function(oEvent) {
                 var otable = this.getView().byId("modelTable");
-                
-                debugger;
+               
                 if (sortCriteria) {
                     var oSorter = new Sorter(sortCriteria, false);    
                     var oBinding = otable.getBinding("items");
