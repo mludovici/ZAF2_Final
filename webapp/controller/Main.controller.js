@@ -19,13 +19,22 @@ sap.ui.define([
         var oModel = null;
         var sortCriteria = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
+
+				oEinzelteilModell: null,
+				oLocalModelData: null,
+
 				onInit: function () {
+
 					var oModelEdit = new JSONModel({
 						edit: false,
 						text: "Bearbeitungsmodus"
 					});
+					var oView = this.getView();
 					this.getView().setModel(oModelEdit, "settings");
 					this.init();
+					this.oEinzelteilModell = new JSONModel();
+					this.oEinzelteilModell.loadData("/model/einzelteile.json");
+
 					
 					
 				},
@@ -106,14 +115,43 @@ sap.ui.define([
 				// });
 			},
 
-			onQuanChange: function(){
-				var anzahl = 0;
-				var preis = 0;
-				anzahl = this.getView().byId("anzahl").getValue();
-				preis = this.getView().byId("id1").getValue();
-				 //var gesamt = anzahl * preis;
-				var Produktgesamtpreis = anzahl * preis;
-				this.getView().byId("gesamt1").setValue(Produktgesamtpreis);
+			onQuanChange: function(oEvent){
+
+				var index = 0;
+				var check = 0;
+				var prop1 = null;
+				var prop2 = null;
+				this.oLocalModelData = this.oEinzelteilModell.getProperty("/einzelteil");
+				while (index <= this.oEinzelteilModell.getProperty("/counter")){
+						prop1 = this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id");
+						prop2 = oEvent.getSource().getBindingContext().getPath().split("'")[1];
+						if(prop1 == prop2){
+							this.oEinzelteilModell.setProperty("/einzelteil/"+index+"/anzahl", oEvent.getParameter("value"));
+							check = check + 1;
+						}
+						index = index + 1;
+						
+				}
+				if(check == 0){
+					this.oLocalModelData.push.apply(this.oLocalModelData, [
+						{id: oEvent.getSource().getBindingContext().getPath().split("'")[1],
+						 anzahl:oEvent.getParameter("value")
+						}]);
+					this.oEinzelteilModell.setProperty("/counter", this.oEinzelteilModell.getProperty("/counter") + 1);
+				}
+
+				check = 0;
+
+				
+				console.log(this.oEinzelteilModell);
+				//this.oEinzelteilModell.setProperty("/einzelteil/id", oEvent.getSource().getBindingContext().getPath().split("'")[1]);
+				//this.oEinzelteilModell.setProperty("/einzelteil/anzahl", oEvent.getParameter("value"));
+				
+				// console.log(this.oEinzelteilModell.getProperty("/einzelteil/1/id"));
+				// console.log(this.oLocalModelData);
+				// console.log(this.oEinzelteilModell);
+				// console.log(oEvent.getParameter("value"));
+				// console.log(oEvent.getSource().getBindingContext().getPath().split("'")[1]);
 			},
 
             onCreateModel: function() {
@@ -124,21 +162,40 @@ sap.ui.define([
                  Fragment.load({
                     name: "zaf2final.view.FragmentModelCreatePage",               
                     controller: this,
-					id: 'test'
+					id: 'CreatePage'
                 }).then(function(oFragment) { 
                     that.getView().byId("dp1").insertContent(oFragment);
-					//var oEinzelteilListe = sap.ui.getCore().byId("test--CreateTabTeileListe");
-					//oEinzelteilListe.bindElement("/EinzelteilSet");
                 });
             },
 
 			onPressModelCreate: function(){
+	
 				this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
-																						Modellname: 'Modellnametest' } });
+																						Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+																						Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+																					    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+																						Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+																					    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
+				
 
-				this.getView().getModel().submitChanges();																		
+
+				
+				var index = 1;
+				while(index <= this.oEinzelteilModell.getProperty("/counter")){
+					if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
+						this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
+							Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
+							Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
+						}})
+						
+					}
+					index = index + 1;
+				}
+
+				this.getView().getModel().submitChanges();
 			},
 
+	
 			onBearbeitungsmodus: function(oEvent){
 				if(Bearbeitungsmodus == 0){
 					this.getView().getModel("settings").setProperty("/edit", true);
