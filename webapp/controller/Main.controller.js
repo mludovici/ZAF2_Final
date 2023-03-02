@@ -26,8 +26,6 @@ sap.ui.define([
 					});
 					this.getView().setModel(oModelEdit, "settings");
 					this.init();
-					
-					
 				},
 
 				init:function(){
@@ -190,7 +188,33 @@ sap.ui.define([
                     var oBinding = otable.getBinding("items");
                     oBinding.sort([oSorter]);
                 }
-            }
+            },
+
+			onStockManagement: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			   
+				Fragment.load({
+				   name: "zaf2final.view.FragmentModelStock",               
+				   controller: this
+			   }).then(function(oFragment) { 
+				   that.getView().byId("dp1").insertContent(oFragment);
+			   });
+		   },
+
+		   onOrder: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			
+				Fragment.load({
+				name: "zaf2final.view.FragmentModelOrder",               
+				controller: this
+			}).then(function(oFragment) { 
+				that.getView().byId("dp1").insertContent(oFragment);
+			});
+		}
             
 			
 		});
