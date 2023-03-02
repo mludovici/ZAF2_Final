@@ -18,7 +18,7 @@
                             <layout:BlockLayoutRow scrollable="false">
                                 <layout:content>
  
-                                    <layout:BlockLayoutCell id="name" width="1">
+                                    <layout:BlockLayoutCell width="1">
                                         <layout:content>
                                             <layout:VerticalLayout width="100%" id="layout0">
                                                 <Image width="100%" id="idImg1" src="{Url}"/>
