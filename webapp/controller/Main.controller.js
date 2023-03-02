@@ -15,11 +15,18 @@ sap.ui.define([
         "use strict";
 
         var Produktgesamtpreis = 0;
+		var Bearbeitungsmodus = 0;
         var oModel = null;
         var sortCriteria = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
 				onInit: function () {
+					var oModelEdit = new JSONModel({
+						edit: false,
+						text: "Bearbeitungsmodus"
+					});
+					this.getView().setModel(oModelEdit, "settings");
 					this.init();
+					
 					
 				},
 
@@ -47,7 +54,7 @@ sap.ui.define([
 			onSelectionChange: function(oEvent) {
 				var oItem = oEvent.getParameter("listItem");
 				var sPath = oItem.getBindingContext().getPath();
-				 
+
 				 var oView = this.getView();
 				 var that = this;
 				 oView.byId('dp1').destroyContent();
@@ -127,6 +134,33 @@ sap.ui.define([
 																						Modellname: 'Modellnametest' } });
 
 				this.getView().getModel().submitChanges();																		
+			},
+
+			onBearbeitungsmodus: function(oEvent){
+				if(Bearbeitungsmodus == 0){
+					this.getView().getModel("settings").setProperty("/edit", true);
+					this.getView().getModel("settings").setProperty("/text", "Anzeigemodus");
+					Bearbeitungsmodus = 1;
+				} else {
+					this.getView().getModel("settings").setProperty("/edit", false);
+					this.getView().getModel("settings").setProperty("/text", "Bearbeitungsmodus");
+					Bearbeitungsmodus = 0;
+				}
+
+			},
+			onEintragbearbeiten: function(oEvent){
+				var oModel = this.getOwnerComponent().getModel();
+			oModel.update('FahrradmodellSet',{ properties: {
+				Preis: this.getView().byId("input1"),
+				Farbe: this.getView().byId("input2")
+				
+			}
+
+			});
+			oModel.submitChanges();
+				
+				
+					
 			},
 
             onClearFilter: function() {
