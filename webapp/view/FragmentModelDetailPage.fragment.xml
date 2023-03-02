@@ -1,91 +1,97 @@
-<c:FragmentDefinition
-    xmlns:f="sap.ui.layout.form"
-    xmlns:layout="sap.ui.layout"
-    xmlns:c="sap.ui.core"
-    xmlns:table="sap.ui.table"
-    xmlns="sap.m">
- 
+<c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
     <Page title="Modelldetails" id="det1" showHeader="true" showFooter="true">
-                <content>
- 
-                    <f:SimpleForm editable="true" backgroundDesign="Transparent">
-                        <Text text="{Modellname}" class="Header"/>
-                    </f:SimpleForm>
- 
-                    <layout:BlockLayout background="Default" visible="true">
+        <Button text="{settings>/text}" press="onBearbeitungsmodus" />
+        <content>
+            <f:SimpleForm editable="true" backgroundDesign="Transparent">
+                <Text text="{Modellname}" class="Header" />
+            </f:SimpleForm>
+
+            <layout:BlockLayout background="Default" visible="true">
+                <layout:content>
+                    <layout:BlockLayoutRow scrollable="false">
                         <layout:content>
- 
-                            <layout:BlockLayoutRow scrollable="false">
+                            <layout:BlockLayoutCell width="1">
                                 <layout:content>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:content>
-                                            <layout:VerticalLayout width="100%" id="layout0">
-                                                <Image width="100%" id="idImg1" src="{Url}"/>
-                                                <HBox>
-                                                <Label text="Preis:" class="LabelCellPreis"/>
-                                                <Text  text="{Preis}" class="TextCellPreis"/>
-                                                </HBox>
-                                                <HBox>
-                                                <Label text="Farbe:" class="LabelCellPreis"/>
-                                                <Text  text="{Farbe}" class="TextCellPreis"/>
-                                                </HBox>
-                                                <Label width="100%" text="Beschreibung" class="LabelCellBesch"/>
-                                                <Text  text="{Beschreibung}" class="TextCellBesch"/>
-                                            </layout:VerticalLayout>
-                                        </layout:content>
-                                    </layout:BlockLayoutCell>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:VerticalLayout width="100%" id="layout1">
-                                            <Label text="Teileliste" class="LabelCellTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabTeileListe"
-                                               items="{
+                                    <layout:VerticalLayout width="100%" id="layout0">
+                                        <Image width="100%" id="idImg1" src="{Url}" />
+                                        <HBox>
+                                            <Label text="Preis:" class="LabelCellPreis" />
+                                            <Input value="{Preis}" id="input1" enabled="{settings>/edit}" class="TextCellPreis" />
+                                        </HBox>
+                                        <HBox>
+                                            <Label text="Farbe:" class="LabelCellPreis" />
+                                            <Input value="{Farbe}" id="input2" enabled="{settings>/edit}" class="TextCellPreis" />
+                                        </HBox>
+                                        <Label width="auto" text="Beschreibung" class="LabelCellBesch" />
+                                        <Input value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="TextCellBesch" />
+                                        <Button text="Eintrag sichern" press="onEintragbearbeiten" />
+                                    </layout:VerticalLayout>
+
+                                    <List
+                                        id="LagerorteListe"
+                                        items="{
+                                                path: 'ToFahrradmodellOrt',
+                                                parameters: {
+                                                    expand: 'ToLagerort'
+                                                }"
+                                        width="100%"
+                                    >
+                                        <items>
+                                            <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
+                                                <ObjectAttribute text="{Bestand}" />
+                                                <ObjectAttribute text="{ToLagerort/Typ}" />
+                                            </ObjectListItem>
+                                        </items>
+                                    </List>
+                                </layout:content>
+                            </layout:BlockLayoutCell>
+
+                            <layout:BlockLayoutCell width="1">
+                                <layout:VerticalLayout width="100%" id="layout1">
+                                    <Label text="Teileliste" class="LabelCellTeile" />
+                                </layout:VerticalLayout>
+                                <Table
+                                    id="TabTeileListe"
+                                    items="{
                                                    path: 'ToFahrradmodellEinzelteil',
                                                    parameters: {
                                                         expand: 'ToEinzelteil'
                                                    }
                                                    
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                    </layout:BlockLayoutCell>
- 
-                                </layout:content>
-                            </layout:BlockLayoutRow>
- 
+                                                }"
+                                >
+                                    <columns>
+                                        <Column width="12em">
+                                            <Text text="Bestandteile" />
+                                        </Column>
+                                        <Column width="12em">
+                                            <Text text="Menge" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                <Text text="{Anzahl}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </layout:BlockLayoutCell>
                         </layout:content>
-                    </layout:BlockLayout>
+                    </layout:BlockLayoutRow>
+                </layout:content>
+            </layout:BlockLayout>
+        </content>
+        <footer>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer width="" />
+                    <Text text="Warenkorbsumme: " />
+                    <Input showValueHelp="false" id="gesamt" editable="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" />
                 </content>
-                <footer>
-                    <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
-                        <content>
-                            <ToolbarSpacer width=""/>
-                            <Text text="Warenkorbsumme: " />
-                            <Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
-                                                valueStateText="Invalid entry" maxLength="0"/>
-                        </content>
-                    </OverflowToolbar>
-                </footer>
-                <headerContent/>
-            </Page>
- 
-   
- 
+            </OverflowToolbar>
+        </footer>
+        <headerContent />
+    </Page>
 </c:FragmentDefinition>

@@ -54,7 +54,8 @@ sap.ui.define([
 				 Fragment.load({
 					 name: "zaf2final.view.FragmentModelDetailPage",
 					 controller: this
-				 }).then(function(oFragment){ oFragment.bindElement(sPath);
+				 }).then(function(oFragment){ 
+					 oFragment.bindElement(sPath);
 					 that.getView().byId("dp1").insertContent(oFragment);
 					 oFragment.bindElement(sPath);
 					 
