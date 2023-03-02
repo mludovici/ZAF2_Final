@@ -106,10 +106,10 @@
           ]
         },
         {
-          "name": "CreateModel",
-          "pattern": "newModel",
+          "name": "LagerVerwaltung",
+          "pattern": "lager",
           "target": [
-            "TargetCreateModel"
+            "TargetLagerVerwaltung"
           ]
         }
       ],
@@ -121,12 +121,12 @@
           "viewId": "Main",
           "viewName": "Main"
         },
-        "TargetCreateModel": {
+        "TargetLagerVerwaltung": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "c",
-          "viewName": "Main"
+          "viewId": "lager",
+          "viewName": "LagerVerwaltung"
         }
       }
     },

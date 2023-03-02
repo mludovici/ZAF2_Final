@@ -5,7 +5,7 @@
                 <Button press="onNavigateHome" id="iconButton" class="sapUiTinyMarginBeginEnd" icon="sap-icon://home" text="Start" />
                 <HBox id="rightSideItems" width="20%" justifyContent="End">
                     <Button press="navigateToAbout" id="about" text="Fahrrad bauen" class="ButtonHeader"/>
-                    <Button press="navigateToProfile" id="profile" text="Lagerverwaltung" class="ButtonHeader"/>
+                    <Button press="navigateToLagerVerwaltung" id="profile" text="Lagerverwaltung" class="ButtonHeader"/>
                     <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="navToTable" class="ButtonHeaderDropDown"/>
                 </HBox>
             </HBox>

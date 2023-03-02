@@ -17,6 +17,7 @@ sap.ui.define([
         var Produktgesamtpreis = 0;
         var oModel = null;
         var sortCriteria = null;
+		var _oRouter = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
 				onInit: function () {
 					this.init();
@@ -25,6 +26,7 @@ sap.ui.define([
 
 				init:function(){
                     this.oModel = this.getView().getModel("mainService");
+					_oRouter = this.getOwnerComponent().getRouter();
 				},
 
 			onChange: function(oEvent) {
@@ -47,7 +49,7 @@ sap.ui.define([
 			onSelectionChange: function(oEvent) {
 				var oItem = oEvent.getParameter("listItem");
 				var sPath = oItem.getBindingContext().getPath();
-				 
+				var modelKey = sPath.split("'")[1];
 				 var oView = this.getView();
 				 var that = this;
 				 oView.byId('dp1').destroyContent();
@@ -55,10 +57,28 @@ sap.ui.define([
 					 name: "zaf2final.view.FragmentModelDetailPage",
 					 controller: this
 				 }).then(function(oFragment){ 
-					 oFragment.bindElement(sPath);
 					 that.getView().byId("dp1").insertContent(oFragment);
 					 oFragment.bindElement(sPath);
-					 
+					var lagerListe = sap.ui.getCore().byId("LagerorteListe");
+					lagerListe.getBinding("items").filter([new Filter({
+						path: 'Modellid',
+						operator: FilterOperator.EQ,
+						value1: modelKey
+					})]);
+					// lagerListe.unbindElement();
+					// lagerListe.setModel();
+					debugger;
+					//  var iZielID = sap.ui.getCore().byId("LagerorteListe");
+					//  var iFahrradID = sap.ui.getCore().byId("input3");
+					//  const path = this.getView().getModel().createKey("/FahrradmodellOrtSet", { 
+					//  	// Key(s) and value(s) of that entity set                    
+					// 	 "Modellid": iFahrradID, // with the value 999 for example                    
+					// 	 "Ortid": iZielID                                    
+					// 	});
+					
+					// var lagerBestand = sap.ui.getCore().byId("lagerBestand");
+					// lagerBestand.bindElement(path);
+						 
 				 });
 			},
 			
@@ -124,10 +144,15 @@ sap.ui.define([
             },
 
 			onPressModelCreate: function(){
+				debugger;
 				this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
 																						Modellname: 'Modellnametest' } });
 
 				this.getView().getModel().submitChanges();																		
+			},
+
+			onEintragbearbeiten: function() {
+				debugger;
 			},
 
             onClearFilter: function() {
@@ -157,7 +182,18 @@ sap.ui.define([
                     var oBinding = otable.getBinding("items");
                     oBinding.sort([oSorter]);
                 }
-            }
+            },
+
+			navigateToLagerVerwaltung: function() {				
+				_oRouter.navTo("LagerVerwaltung");
+			},
+			formatLagerTypeOutput: function(oLType) {
+				if (oLType == 'L') {
+					return "Lagerort";
+				} else if (oLType == 'V') {
+					return "Verkaufsstelle"
+				}
+			}
             
 			
 		});

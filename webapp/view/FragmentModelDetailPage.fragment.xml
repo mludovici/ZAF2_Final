@@ -26,23 +26,6 @@
                                         <Input value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="TextCellBesch" />
                                         <Button text="Eintrag sichern" press="onEintragbearbeiten" />
                                     </layout:VerticalLayout>
-
-                                    <List
-                                        id="LagerorteListe"
-                                        items="{
-                                                path: 'ToFahrradmodellOrt',
-                                                parameters: {
-                                                    expand: 'ToLagerort'
-                                                }"
-                                        width="100%"
-                                    >
-                                        <items>
-                                            <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
-                                                <ObjectAttribute text="{Bestand}" />
-                                                <ObjectAttribute text="{ToLagerort/Typ}" />
-                                            </ObjectListItem>
-                                        </items>
-                                    </List>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 
@@ -56,8 +39,7 @@
                                                    path: 'ToFahrradmodellEinzelteil',
                                                    parameters: {
                                                         expand: 'ToEinzelteil'
-                                                   }
-                                                   
+                                                   }                                                   
                                                 }"
                                 >
                                     <columns>
@@ -79,6 +61,34 @@
                                 </Table>
                             </layout:BlockLayoutCell>
                         </layout:content>
+                    </layout:BlockLayoutRow>
+                    <layout:BlockLayoutRow>
+                        <layout:BlockLayoutCell>
+                            <List
+                                headerText="Verfügbare Lagerorte/Verkaufsstellen"
+                                noDataText="Keine Lagerorte/Verkaufsstellen zu diesem Modell gefunden."
+                                id="LagerorteListe"
+                                items="{
+                                                path: '/FahrradmodellOrtSet',
+                                                parameters: {
+                                                        expand: 'ToLagerort'
+                                                   }
+                                        }"
+                            >
+                                <items>
+                                	<!-- <StandardListItem
+                                    title="{ToLagerort/Ort}"
+                                    description="{Typ}"
+                                    icon="{ProductPicUrl}"
+                                    iconDensityAware="false"
+                                    iconInset="false" /> -->
+                                    <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
+                                        <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}"  />
+                                        <ObjectAttribute text="Bestand: {Bestand}" />
+                                    </ObjectListItem>
+                                </items>
+                            </List>
+                        </layout:BlockLayoutCell>
                     </layout:BlockLayoutRow>
                 </layout:content>
             </layout:BlockLayout>
