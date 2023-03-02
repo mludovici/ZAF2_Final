@@ -5,7 +5,8 @@
     xmlns:table="sap.ui.table"
     xmlns="sap.m">
  
-    <Page title="Modelldetails" id="det1" showHeader="true" showFooter="true">
+    <Page title="Modelldetails"  id="det1" showHeader="true" showFooter="true">
+    <Button text="{settings>/text}" press="onBearbeitungsmodus"/>
                 <content>
  
                     <f:SimpleForm editable="true" backgroundDesign="Transparent">
@@ -24,14 +25,15 @@
                                                 <Image width="100%" id="idImg1" src="{Url}"/>
                                                 <HBox>
                                                 <Label text="Preis:" class="LabelCellPreis"/>
-                                                <Text  text="{Preis}" class="TextCellPreis"/>
+                                                <Input  value="{Preis}" id="input1" enabled="{settings>/edit}" class="TextCellPreis"/>
                                                 </HBox>
                                                 <HBox>
                                                 <Label text="Farbe:" class="LabelCellPreis"/>
-                                                <Text  text="{Farbe}" class="TextCellPreis"/>
+                                                <Input  value="{Farbe}" id="input2" enabled="{settings>/edit}" class="TextCellPreis"/>
                                                 </HBox>
-                                                <Label width="100%" text="Beschreibung" class="LabelCellBesch"/>
-                                                <Text  text="{Beschreibung}" class="TextCellBesch"/>
+                                                <Label width="auto" text="Beschreibung" class="LabelCellBesch"/>
+                                                <Input  value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="TextCellBesch"/>
+                                                <Button text="Eintrag sichern" press="onEintragbearbeiten"/>
                                             </layout:VerticalLayout>
                                         </layout:content>
                                     </layout:BlockLayoutCell>
@@ -65,6 +67,7 @@
                                                 </ColumnListItem>
                                             </items>
                                         </Table>
+                                        
                                     </layout:BlockLayoutCell>
  
                                 </layout:content>
