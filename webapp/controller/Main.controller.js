@@ -247,10 +247,10 @@ sap.ui.define([
 			},
 			onEintragbearbeiten: function(oEvent){
 				var oModel = this.getOwnerComponent().getModel();
-				oModel.update('FahrradmodellSet',{ properties: {
-					Preis: sap.ui.getCore().byId("input1"),
-					Farbe: sap.ui.getCore().byId("input2"),
-					Beschreibung: sap.ui.getCore().byId("input3")
+				oModel.update('/FahrradmodellSet',{ properties: {
+					Preis: sap.ui.getCore().byId("input1").getValue(),
+					Farbe: sap.ui.getCore().byId("input2").getValue(),
+					Beschreibung: sap.ui.getCore().byId("input3").getValue()
 					
 				}
 	
