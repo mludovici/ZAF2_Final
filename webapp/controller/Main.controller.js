@@ -179,6 +179,7 @@ sap.ui.define([
 				 var that = this;
 				 oView.byId('dp1').destroyContent();
                 
+				 
                  Fragment.load({
                     name: "zaf2final.view.FragmentModelCreatePage",               
                     controller: this,
