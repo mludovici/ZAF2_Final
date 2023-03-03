@@ -82,7 +82,7 @@ sap.ui.define([
 					})]);
 					// lagerListe.unbindElement();
 					// lagerListe.setModel();
-					debugger;
+		
 					//  var iZielID = sap.ui.getCore().byId("LagerorteListe");
 					//  var iFahrradID = sap.ui.getCore().byId("input3");
 					//  const path = this.getView().getModel().createKey("/FahrradmodellOrtSet", { 
@@ -99,7 +99,7 @@ sap.ui.define([
 			
 			onSearch: function (oEvent) {
 				// add filter for search
-                debugger;
+           
 				var aFilters = [];
                 var oItem = oEvent.getSource();
                 let boundModelPath = this.getView().byId("modelTable").getBindingInfo("items").path;
@@ -214,7 +214,7 @@ sap.ui.define([
 																						this.getView().getModel().submitChanges();
 																					}.bind(this),
 																					error: function (oResultData){
-																						debugger;
+																						
 																					} });
 				// this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
 				// 																		Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
@@ -255,10 +255,6 @@ sap.ui.define([
 				
 				
 					
-			},
-
-			onEintragbearbeiten: function() {
-				debugger;
 			},
 
             onClearFilter: function() {
