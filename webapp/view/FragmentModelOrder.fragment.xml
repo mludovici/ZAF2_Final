@@ -1,64 +1,46 @@
-<c:FragmentDefinition xmlns:f="sap.ui.layout.form" 
-                      xmlns:layout="sap.ui.layout" 
-                      xmlns:c="sap.ui.core" 
-                      xmlns:table="sap.ui.table" 
-                      xmlns="sap.m"
-                      xmlns:u="sap.ui.unified"
-                      xmlns:html="http://www.w3.org/1999/xhtml">
-    
+<c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:html="http://www.w3.org/1999/xhtml">
     <Page title="Modell bestellen" showHeader="true" showFooter="true">
         <content>
             <layout:BlockLayout background="Default" visible="true">
                 <layout:content>
-
                     <layout:BlockLayoutRow scrollable="false">
                         <layout:content>
-
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <HBox>
                                         <Label text="Von" required="true" />
-                                        <Select id="OriginSelect" width="auto" change="onSelectColor" class="sapUiTinyMarginEnd">
-                                            <c:ListItem id="BerLag1" text="Lager Berlin" />
-                                            <c:ListItem id="KoeLag1" text="Lager Köln" />
-                                            <c:ListItem id="MueLag1" text="Lager München" />
+                                        <Select  id="von" width="auto" change="onSelectLager" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }">
+                                            <c:ListItem id="lager1" key="{Ortid}" text="{Ort}" />
                                         </Select>
                                     </HBox>
                                     <HBox>
                                         <Label text="Modell" required="true" />
-                                        <Select id="ModelSelect" width="auto" change="onSelectColor">
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                        </Select>
+                                         <Select id="fahrrad" width="auto"  change="onSelectLager" items="{/FahrradmodellSet}">
+                                            <c:ListItem key="{Modellid}" text="{Modellname}" />
+                                    </Select>
                                     </HBox>
                                     <HBox>
                                         <Label text="Verfügbar" required="true" />
-                                        <Input value="{Deine Mum}" />
-                                    </HBox>                                   
+                                       <Input value="{Bestand}" id="vorhanden" />
+                                    </HBox>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 
                             <layout:BlockLayoutCell width="1">
-                               <HBox>
+                                <HBox>
                                     <Label text="Nach" required="true" />
-                                    <Select id="DestinationSelect" width="auto" change="onSelectColor">
-                                        <c:ListItem id="BerLag2" text="Lager Berlin" />
-                                        <c:ListItem id="KoeLag2" text="Lager Köln" />
-                                        <c:ListItem id="MueLag2" text="Lager München" />
-                                        <c:ListItem id="BerVer1" text="Verkauf Berlin" />
-                                        <c:ListItem id="KoeVer1" text="Verkauf Köln" />
-                                        <c:ListItem id="MueVer1" text="Verkauf München" />
+                                    <Select id="ziel" width="auto" change="onSelectZiel" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }" >
+                                        <c:ListItem key="{Ortid}" id="lager2" text="{Ort}" />
                                     </Select>
+                                     <Input value="{Bestand}" id="bestandziel" />
                                 </HBox>
                                 <HBox>
                                     <Label text="Anzahl" required="true" />
-                                    <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
+                                    <StepInput width="auto" min="0" id="anzahl" step="1" change="onQuanChange" visible="true" />
                                 </HBox>
-                                    
-                                <Button press="onPressModelOrder" text="Modell bestellen" icon="sap-icon://add-coursebook"/>
-                            </layout:BlockLayoutCell>
 
+                                <Button press="onPressModelOrder" text="Modell bestellen" icon="sap-icon://add-coursebook" />
+                            </layout:BlockLayoutCell>
                         </layout:content>
                     </layout:BlockLayoutRow>
                 </layout:content>
@@ -66,67 +48,7 @@
 
             <html:hr />
 
-            <layout:BlockLayout background="Default" visible="true">
-                <layout:content>
-                    <layout:BlockLayoutRow scrollable="false">
-                                <layout:content>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:content>
-                                            <layout:VerticalLayout width="100%">
-                                            <Text text="{Modellname}" class="Header"/>
-                                                <Image width="100%" id="idImg1" src="{Url}"/>
-                                                <HBox>
-                                                    <Label text="Preis:" class="sapUiTinyMarginTop"/>
-                                                    <Input  value="{Preis}" id="input1" enabled="{settings>/edit}" class="sapUiSmallMarginBegin"/>
-                                                </HBox>
-                                                <HBox>
-                                                    <Label text="Farbe:" class="sapUiTinyMarginTop"/>
-                                                    <Input  value="{Farbe}" id="input2" enabled="{settings>/edit}" class="sapUiSmallMarginBegin"/>
-                                                </HBox>
-                                                <Label width="auto" text="Beschreibung" class="ModelDetailPageUeberschrBesch"/>
-                                                <TextArea rows="5" width="100%" value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="sapUiSmallMarginTop"/>
-                                            </layout:VerticalLayout>
-                                        </layout:content>
-                                    </layout:BlockLayoutCell>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:VerticalLayout width="100%" id="layout1">
-                                            <Label text="Teileliste" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabTeileListe"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                        
-                                    </layout:BlockLayoutCell>
- 
-                                </layout:content>
-                            </layout:BlockLayoutRow>
-
-                </layout:content>
-            </layout:BlockLayout>
+           
         </content>
-   </Page> 
+    </Page>
 </c:FragmentDefinition>

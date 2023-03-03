@@ -178,6 +178,7 @@ sap.ui.define([
 				 var that = this;
 				 oView.byId('dp1').destroyContent();
                 
+				 
                  Fragment.load({
                     name: "zaf2final.view.FragmentModelCreatePage",               
                     controller: this,
@@ -189,29 +190,43 @@ sap.ui.define([
 
 			onPressModelCreate: function(){
 	
-				this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
-																						Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
-																						Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
-																					    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
-																						Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
-																					    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
-				
-
-
-				
-				var index = 1;
-				while(index <= this.oEinzelteilModell.getProperty("/counter")){
-					if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
-						this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
-							Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
-							Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
-						}})
+				this.getView().getModel().create('/FahrradmodellSet', {
+					Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+					Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+					Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+					Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+					Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() }, {
+																					success: function (oResultData){
 						
-					}
-					index = index + 1;
-				}
+																						var index = 1;
+																						while(index <= this.oEinzelteilModell.getProperty("/counter")){
+																							if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
+																								this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
+																									Modellid:		oResultData.Modellid,
+																									Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
+																									Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
+																								}})
+																								
+																							}
+																							index = index + 1;
+																						}
+																		
+																						this.getView().getModel().submitChanges();
+																					}.bind(this),
+																					error: function (oResultData){
+																						
+																					} });
+				// this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
+				// 																		Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+				// 																		Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+				// 																	    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+				// 																		Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+				// 																	    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
+				
 
-				this.getView().getModel().submitChanges();
+				
+				
+
 			},
 
 	
@@ -220,30 +235,32 @@ sap.ui.define([
 					this.getView().getModel("settings").setProperty("/edit", true);
 					this.getView().getModel("settings").setProperty("/text", "Anzeigemodus");
 					Bearbeitungsmodus = 1;
+					MessageToast.show("Sie befinden sich nun im Bearbeitungsmodus");
 				} else {
 					this.getView().getModel("settings").setProperty("/edit", false);
 					this.getView().getModel("settings").setProperty("/text", "Bearbeitungsmodus");
+					MessageToast.show("Sie befinden sich nun im Anzeigemodus");
 					Bearbeitungsmodus = 0;
 				}
 
 			},
 			onEintragbearbeiten: function(oEvent){
 				var oModel = this.getOwnerComponent().getModel();
-			oModel.update('FahrradmodellSet',{ properties: {
-				Preis: this.getView().byId("input1"),
-				Farbe: this.getView().byId("input2")
-				
-			}
-
-			});
-			oModel.submitChanges();
-				
-				
+				oModel.update('/FahrradmodellSet',{ properties: {
+					Preis: sap.ui.getCore().byId("input1").getValue(),
+					Farbe: sap.ui.getCore().byId("input2").getValue(),
+					Beschreibung: sap.ui.getCore().byId("input3").getValue()
 					
-			},
+				}
+	
+				});
+				
+				oModel.submitChanges();
 
-			onEintragbearbeiten: function() {
-				debugger;
+
+
+
+				
 			},
 
 			onSelectAreaType: function(oEvent) {
@@ -287,6 +304,8 @@ sap.ui.define([
 			onFilterChange: function() {
 				
 			},
+
+			
 
             onClearFilter: function() {
                 this.getView().byId("filterCriteria").setValue(null);
@@ -363,7 +382,162 @@ sap.ui.define([
 			}).then(function(oFragment) { 
 				that.getView().byId("dp1").insertContent(oFragment);
 			});
+		},
+
+		onSelectLager: function(oEvent){
+			var oSelectZiel = sap.ui.getCore().byId("von");
+				var oSelectFahrrad = sap.ui.getCore().byId("fahrrad");
+				var iZielID = oSelectZiel.getSelectedKey();
+				var iFahrradID = oSelectFahrrad.getSelectedKey();
+				
+				var oInput = sap.ui.getCore().byId("vorhanden");
+				const path = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
+					// Key(s) and value(s) of that entity set
+					"Modellid": iFahrradID, // with the value 999 for example
+					"Ortid": iZielID
+					
+				  });
+				 oInput.bindElement(path);
+				 var oInput2 = sap.ui.getCore().byId("bestandziel");
+				 var zielSelect = sap.ui.getCore().byId("ziel");
+				 var zielKey = zielSelect.getSelectedKey();
+				const path2 = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
+					// Key(s) and value(s) of that entity set
+					"Modellid": iFahrradID, // with the value 999 for example
+					"Ortid": zielKey
+					
+				  });
+				 oInput2.bindElement(path2);
+		},
+
+		onPressModelOrder: function(){
+			var vonLager = sap.ui.getCore().byId("von");
+				var zuLager = sap.ui.getCore().byId("ziel");
+				var keyV = vonLager.getSelectedKey();
+				var keyZ = zuLager.getSelectedKey();
+				var modell = sap.ui.getCore().byId("fahrrad");
+				var modellKey = modell.getSelectedKey();
+
+			if (sap.ui.getCore().byId("vorhanden").getValue() == 0){
+				MessageBox.show(
+					"Das ausgewählte Modell ist in dem ausgewählten Lagerort nicht vorrätig", {
+						icon: MessageBox.Icon.ERROR,
+						title: "Fehler",
+						actions: [MessageBox.Action.OK],
+						emphasizedAction: MessageBox.Action.YES,
+						onClose: function (oAction) {  }
+					}
+				);
+
+			}
+			else if(keyV == keyZ){
+				MessageBox.show(
+					"Keine bestellung zum selben Lager möglich", {
+						icon: MessageBox.Icon.ERROR,
+						title: "Fehler",
+						actions: [MessageBox.Action.OK],
+						emphasizedAction: MessageBox.Action.YES,
+						onClose: function (oAction) {  }
+					}
+				);
+
+			}  else if(sap.ui.getCore().byId("anzahl").getValue() > sap.ui.getCore().byId("vorhanden").getValue()){
+				MessageBox.show(
+					"Sie können nicht mehr bestellen, als verfügbar", {
+						icon: MessageBox.Icon.ERROR,
+						title: "Fehler",
+						actions: [MessageBox.Action.OK],
+						emphasizedAction: MessageBox.Action.YES,
+						onClose: function (oAction) {  }
+					}
+				);
+				
+			} else if(sap.ui.getCore().byId("anzahl").getValue()<= 0){
+				
+MessageBox.show(
+	"Bitte geben sie eine Zahl größer als 0", {
+		icon: MessageBox.Icon.ERROR,
+		title: "Fehler",
+		actions: [MessageBox.Action.OK],
+		onClose: function (oAction) {  }
+	}
+);
+				
+			}
+			
+			
+			else {
+				var oModel = this.getView().getModel();
+				var anzahl = sap.ui.getCore().byId("anzahl").getValue();
+				var mengeV = Number(sap.ui.getCore().byId("vorhanden").getValue());
+				var mengeZ = Number(sap.ui.getCore().byId("bestandziel").getValue());
+				const quellPath = oModel.createKey("/FahrradmodellOrtSet", {
+					// Key(s) and value(s) of that entity set
+					"Modellid": modellKey, // with the value 999 for example
+					"Ortid": keyV
+					
+				  });
+				const zielPath = oModel.createKey("/FahrradmodellOrtSet", {
+					// Key(s) and value(s) of that entity set
+					"Modellid": modellKey, // with the value 999 for example
+					"Ortid": keyZ
+					
+				  });
+				
+				  MessageBox.show(
+					"Wollen Sie die Bestellung in Auftrag geben?", {
+						icon: MessageBox.Icon.QUESTION,
+						title: "Bestellbestätigung",
+						actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+						emphasizedAction: MessageBox.Action.YES,
+						onClose: function (oAction) {
+							if (oAction === MessageBox.Action.YES) {
+								MessageToast.show("Bestellung erfolgreich in Auftrag gegeben");
+								MessageBox.show(
+									"Bestellung erfolgreich erfasst", {
+										icon: MessageBox.Icon.SUCCESS,
+										title: "Bestellung erfolgreich",
+										actions: [MessageBox.Action.OK],
+										emphasizedAction: MessageBox.Action.YES,
+										onClose: function (oAction) {  }
+									}
+								);
+								oModel.setProperty(quellPath +'/Bestand',mengeV - anzahl);
+								oModel.setProperty(zielPath +'/Bestand',mengeZ + anzahl);
+								oModel.submitChanges();
+							} else {
+								MessageToast.show("Bestellung nicht in Auftrag gegeben");
+							}
+						}
+					}
+				);
+				  
+				  
+			
+			}
+			
+
+		},
+
+		onSelectZiel: function(oEvent){
+			var oSelectFahrrad = sap.ui.getCore().byId("fahrrad");
+			var iFahrradID = oSelectFahrrad.getSelectedKey();
+	
+			
+			 var oInput2 = sap.ui.getCore().byId("bestandziel");
+			 var zielSelect = sap.ui.getCore().byId("ziel");
+			 var zielKey = zielSelect.getSelectedKey();
+			const path2 = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
+				// Key(s) and value(s) of that entity set
+				"Modellid": iFahrradID, // with the value 999 for example
+				"Ortid": zielKey
+				
+			  });
+			 oInput2.bindElement(path2);
+
 		}
+
+		
             
 			
 		});
