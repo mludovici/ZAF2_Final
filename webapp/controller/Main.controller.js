@@ -339,6 +339,19 @@ sap.ui.define([
 			   });
 		   },
 
+		   onModelBuild: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			
+				Fragment.load({
+				name: "zaf2final.view.FragmentModelBuild",               
+				controller: this
+			}).then(function(oFragment) { 
+				that.getView().byId("dp1").insertContent(oFragment);
+			});
+		},
+
 		   onOrder: function() {
 				var oView = this.getView();
 				var that = this;

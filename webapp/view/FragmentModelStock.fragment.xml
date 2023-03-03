@@ -7,7 +7,6 @@
     xmlns:html="http://www.w3.org/1999/xhtml">
  
     <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det1" showHeader="true" showFooter="true">
-    <Button text="{settings>/text}" press="onBearbeitungsmodus"/>
                 <content>
                     <layout:BlockLayout background="Default" visible="true">
                         <layout:content>
@@ -80,10 +79,15 @@
  
                                 </layout:content>
                             </layout:BlockLayoutRow>
+                        </layout:content>
+                    </layout:BlockLayout>
 
                             <html:hr />
 
-                            <!-- <layout:BlockLayoutRow scrollable="false">
+                    <layout:BlockLayout background="Default" visible="true">
+                        <layout:content>
+
+                            <layout:BlockLayoutRow scrollable="false">
                                 <layout:content>
  
                                     <layout:BlockLayoutCell width="1">
@@ -150,11 +154,89 @@
                                     </layout:BlockLayoutCell>
  
                                 </layout:content>
-                            </layout:BlockLayoutRow> -->
+                            </layout:BlockLayoutRow>
+ 
+                        </layout:content>
+                    </layout:BlockLayout>
+
+                    <html:hr />
+
+                    <layout:BlockLayout background="Default" visible="true">
+                        <layout:content>
+
+                            <layout:BlockLayoutRow scrollable="false">
+                                <layout:content>
+ 
+                                    <layout:BlockLayoutCell width="1">
+                                         <layout:VerticalLayout width="100%">
+                                            <Label text="Lager München" class="ModelDetailPageUeberschrTeile"/>
+                                        </layout:VerticalLayout>
+                                        <Table id="TabLagerMuenchen"
+                                               items="{
+                                                   path: 'ToFahrradmodellEinzelteil',
+                                                   parameters: {
+                                                        expand: 'ToEinzelteil'
+                                                   }
+                                                   
+                                                }">
+                                            <columns>
+                                                <Column width="12em">
+                                                    <Text text="Bestandteile" />
+                                                </Column>
+                                                <Column width="12em">
+                                                    <Text text="Menge" />
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                        <Text text="{Anzahl}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                    </layout:BlockLayoutCell>
+ 
+                                    <layout:BlockLayoutCell width="1">
+                                        <layout:VerticalLayout width="100%">
+                                            <Label text="Verkaufsstelle München" class="ModelDetailPageUeberschrTeile"/>
+                                        </layout:VerticalLayout>
+                                        <Table id="TabVerkaufMuenchen"
+                                               items="{
+                                                   path: 'ToFahrradmodellEinzelteil',
+                                                   parameters: {
+                                                        expand: 'ToEinzelteil'
+                                                   }
+                                                   
+                                                }">
+                                            <columns>
+                                                <Column width="12em">
+                                                    <Text text="Bestandteile" />
+                                                </Column>
+                                                <Column width="12em">
+                                                    <Text text="Menge" />
+                                                </Column>
+                                            </columns>
+                                            <items>
+                                                <ColumnListItem>
+                                                    <cells>
+                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
+                                                        <Text text="{Anzahl}" />
+                                                    </cells>
+                                                </ColumnListItem>
+                                            </items>
+                                        </Table>
+                                        
+                                    </layout:BlockLayoutCell>
+ 
+                                </layout:content>
+                            </layout:BlockLayoutRow>
  
                         </layout:content>
                     </layout:BlockLayout>
                 </content>
+
                 <footer>
                     <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
                         <content>

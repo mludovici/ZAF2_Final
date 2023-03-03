@@ -1,7 +1,0 @@
-<mvc:View controllerName="zaf2final.controller.LagerVerwaltung" xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core">
-    <Page id="lager" showNavButton="true" navButtonPress="onNavBack" title="{i18n>title}" >
-        <content>
-            <Text text="Lagerverwaltung" />
-        </content>
-    </Page>
-</mvc:View>

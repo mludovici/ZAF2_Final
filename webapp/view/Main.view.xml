@@ -75,7 +75,7 @@
 			
 			<Page>
 				 <headerContent>
-					<Button press="navigateToAbout" id="about" text="Modell erstellen" class="ButtonHeader"/>
+					<Button press="onModelBuild" id="about" text="Fahrrad bauen" class="ButtonHeader"/>
                     <Button press="onStockManagement" id="stock" text="Lagerverwaltung" class="ButtonHeader"/>
 					<Button press="onOrder" id="order" text="Bestellen" class="ButtonHeader"/>
                     <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="navToTable" class="ButtonHeaderDropDown"/>
