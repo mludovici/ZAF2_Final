@@ -19,11 +19,12 @@ sap.ui.define([
         var oModel = null;
         var sortCriteria = null;
 		var _oRouter = null;
+		var _oBindingItem = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
 
 				oEinzelteilModell: null,
 				oLocalModelData: null,
-
+				oModelButton: null,
 				onInit: function () {
 
 					var oModelEdit = new JSONModel({
@@ -35,6 +36,11 @@ sap.ui.define([
 					this.init();
 					this.oEinzelteilModell = new JSONModel();
 					this.oEinzelteilModell.loadData("/model/einzelteile.json");
+					this.oModelButton = new JSONModel({
+						btnIcon: "gt"
+					});
+
+					this.getView().setModel(this.oModelButton)
 
 				},
 
@@ -53,6 +59,15 @@ sap.ui.define([
 					});
 				oTable.getBinding("items").filter([oFilter]);
 			},
+
+			onToggleIcon: function(oEvent) {
+				let iconValue = this.oModelButton.getProperty("/btnIcon");
+				if (iconValue == 'gt') {
+					this.oModelButton.setProperty("/btnIcon", "lt");
+				} else {
+					this.oModelButton.setProperty("/btnIcon", "gt");
+				}
+			},
 			
 			onClearFilter: function() {
 				var oTable = this.getView().byId("productTable");
@@ -64,7 +79,7 @@ sap.ui.define([
 				var oItem = oEvent.getParameter("listItem");
 				var sPath = oItem.getBindingContext().getPath();
 				var modelKey = sPath.split("'")[1];
-
+				this._oBindingItem = modelKey;
 				 var oView = this.getView();
 				 var that = this;
 				 oView.byId('dp1').destroyContent();
@@ -79,27 +94,11 @@ sap.ui.define([
 						path: 'Modellid',
 						operator: FilterOperator.EQ,
 						value1: modelKey
-					})]);
-					// lagerListe.unbindElement();
-					// lagerListe.setModel();
-					debugger;
-					//  var iZielID = sap.ui.getCore().byId("LagerorteListe");
-					//  var iFahrradID = sap.ui.getCore().byId("input3");
-					//  const path = this.getView().getModel().createKey("/FahrradmodellOrtSet", { 
-					//  	// Key(s) and value(s) of that entity set                    
-					// 	 "Modellid": iFahrradID, // with the value 999 for example                    
-					// 	 "Ortid": iZielID                                    
-					// 	});
-					
-					// var lagerBestand = sap.ui.getCore().byId("lagerBestand");
-					// lagerBestand.bindElement(path);
-						 
+					})]);	 
 				 });
 			},
 			
 			onSearch: function (oEvent) {
-				// add filter for search
-                debugger;
 				var aFilters = [];
                 var oItem = oEvent.getSource();
                 let boundModelPath = this.getView().byId("modelTable").getBindingInfo("items").path;
@@ -247,13 +246,54 @@ sap.ui.define([
 				debugger;
 			},
 
+			onSelectAreaType: function(oEvent) {
+				var filters = [];
+				// var lagerListe = sap.ui.getCore().byId("LagerorteListe");
+				// 	lagerListe.getBinding("items").filter([new Filter({
+				// 		path: 'Modellid',
+				// 		operator: FilterOperator.EQ,
+				// 		value1: this._oBindingItem
+				// 	})]);	
+				var selectedArea = oEvent.getParameter("selectedItem").getKey();
+				var oListOrte = sap.ui.getCore().byId("LagerorteListe");
+				var oBinding = oListOrte.getBinding("items");
+				// let orteItems = oListOrte.getAggregation("items").filter(item => item.mAggregations.attributes[0].mProperties.text == `Typ: ${selectedArea}`);
+				// sap.ui.getCore().byId("LagerorteListe").getModel().set
+
+				if (selectedArea == 'none') {
+					let modelFilter = new Filter({
+						path: 'Modellid',
+						operator: FilterOperator.EQ,
+						value1: this._oBindingItem
+					});
+					filters.push(modelFilter);
+				}else {
+					let oFilter = new Filter({
+                        path: "ToLagerort/Typ",
+                        operator: FilterOperator.EQ,
+                        value1: selectedArea
+                    });
+					filters.push(oFilter);
+					let modelFilter = new Filter({
+						path: 'Modellid',
+						operator: FilterOperator.EQ,
+						value1: this._oBindingItem
+					});
+					filters.push(modelFilter);
+				}
+				oBinding.filter(filters);
+			},
+
+			onFilterChange: function() {
+				
+			},
+
             onClearFilter: function() {
                 this.getView().byId("filterCriteria").setValue(null);
                 this.getView().byId("modelTable").getBinding("items").filter(null);
             },
 
-            onFilterItemsChange: function(oEvent) {
-               
+            onFilterItemsChange: function(oEvent) {               
                 sortCriteria = oEvent.getParameter("selectedItem").getText();
             },
 

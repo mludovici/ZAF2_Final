@@ -26,6 +26,46 @@
                                         <TextArea rows="5" width="100%" value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="sapUiSmallMarginTop" />
                                         <Button text="Eintrag sichern" press="onEintragbearbeiten" class="ModelDetailPageSaveButton" />
                                     </layout:VerticalLayout>
+
+                                    <List
+                                        class="sapUiLargeMarginTop"
+                                        headerText="Verfügbare Lagerorte/Verkaufsstellen"
+                                        noDataText="Keine Lagerorte/Verkaufsstellen zu diesem Modell gefunden."
+                                        id="LagerorteListe"
+                                        items="{
+                                                path: '/FahrradmodellOrtSet',
+                                                parameters: {
+                                                        expand: 'ToLagerort',
+                                                        operationMode: 'Client'
+                                                   }
+                                        }"
+                                    >
+                                        <headerToolbar>
+                                            <OverflowToolbar>
+                                                <Title text="Lagerorte/Verkaufsstellen" level="H1" />
+                                                <ToolbarSpacer />
+                                                <Select id="selectAreaType" width="auto" change="onSelectAreaType">
+                                                    <c:ListItem id="none" text="" key="none" />
+                                                    <c:ListItem id="ls" text="Lagerort" key="L"/>
+                                                    <c:ListItem id="vs" text="Verkaufsstelle" key="V" />
+                                                </Select>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <items>
+                                            <!-- <StandardListItem
+                                    title="{ToLagerort/Ort}"
+                                    description="{Typ}"
+                                    icon="{ProductPicUrl}"
+                                    iconDensityAware="false"
+                                    iconInset="false" /> -->
+                                            <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
+                                                <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}" />
+                                                <firstStatus>
+                                                    <ObjectStatus text="Bestand: {Bestand}" />
+                                                </firstStatus>
+                                            </ObjectListItem>
+                                        </items>
+                                    </List>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 
@@ -62,35 +102,6 @@
                                 </Table>
                             </layout:BlockLayoutCell>
                         </layout:content>
-                    </layout:BlockLayoutRow>
-
-                    <layout:BlockLayoutRow>
-                        <layout:BlockLayoutCell>
-                            <List
-                                headerText="Verfügbare Lagerorte/Verkaufsstellen"
-                                noDataText="Keine Lagerorte/Verkaufsstellen zu diesem Modell gefunden."
-                                id="LagerorteListe"
-                                items="{
-                                                path: '/FahrradmodellOrtSet',
-                                                parameters: {
-                                                        expand: 'ToLagerort'
-                                                   }
-                                        }"
-                            >
-                                <items>
-                                    <!-- <StandardListItem
-                                    title="{ToLagerort/Ort}"
-                                    description="{Typ}"
-                                    icon="{ProductPicUrl}"
-                                    iconDensityAware="false"
-                                    iconInset="false" /> -->
-                                    <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
-                                        <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}" />
-                                        <ObjectAttribute text="Bestand: {Bestand}" />
-                                    </ObjectListItem>
-                                </items>
-                            </List>
-                        </layout:BlockLayoutCell>
                     </layout:BlockLayoutRow>
                 </layout:content>
             </layout:BlockLayout>

@@ -19,6 +19,17 @@
 								<VBox width="100%">
                                     <Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/>
 									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
+									<HBox justifyContent="SpaceBetween">
+										<Select autoAdjustWidth="true" id="filterItems" width="100%" change="onFilterChange" >
+											<c:ListItem id="empty" text="" />
+											<c:ListItem id="preis" text="Preis" />
+											<c:ListItem id="bestand" text="Bestand" />
+										</Select>
+										
+										<Button text="" icon="{= ${/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
+										<Input type="Number" />
+									</HBox>
+
 									<HBox width="100%" justifyContent="End" alignItems="Stretch">
 									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onFilterItemsChange" >
 										<layoutData>
@@ -52,7 +63,7 @@
 								<ObjectIdentifier title="{Modellname}"/>
 								<VBox>
 								<Text text="{Preis} €" class="TextTabelleMasterPage"/>
-								<Text id ="test" text="{}" class="TextTabelleMasterPage"/>
+								<Text id ="test" text="{Bestand}" class="TextTabelleMasterPage"/>
 								</VBox>
 							</cells>
 						</ColumnListItem>
