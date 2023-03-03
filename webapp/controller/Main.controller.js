@@ -170,29 +170,43 @@ sap.ui.define([
 
 			onPressModelCreate: function(){
 	
-				this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
-																						Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
-																						Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
-																					    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
-																						Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
-																					    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
-				
-
-
-				
-				var index = 1;
-				while(index <= this.oEinzelteilModell.getProperty("/counter")){
-					if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
-						this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
-							Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
-							Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
-						}})
+				this.getView().getModel().create('/FahrradmodellSet', {
+					Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+					Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+					Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+					Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+					Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() }, {
+																					success: function (oResultData){
 						
-					}
-					index = index + 1;
-				}
+																						var index = 1;
+																						while(index <= this.oEinzelteilModell.getProperty("/counter")){
+																							if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
+																								this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
+																									Modellid:		oResultData.Modellid,
+																									Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
+																									Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
+																								}})
+																								
+																							}
+																							index = index + 1;
+																						}
+																		
+																						this.getView().getModel().submitChanges();
+																					}.bind(this),
+																					error: function (oResultData){
+																						debugger;
+																					} });
+				// this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
+				// 																		Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+				// 																		Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+				// 																	    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+				// 																		Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+				// 																	    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
+				
 
-				this.getView().getModel().submitChanges();
+				
+				
+
 			},
 
 	

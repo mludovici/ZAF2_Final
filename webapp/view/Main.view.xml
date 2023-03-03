@@ -46,7 +46,7 @@
 								<ObjectIdentifier title="{Modellname}"/>
 								<VBox>
 								<Text text="{Preis} €" class="TextTabelleMasterPage"/>
-								<Text id ="test" text="{}" class="TextTabelleMasterPage"/>
+								<Text id ="test" text="{Bestand} Stk." class="TextTabelleMasterPage"/>
 								</VBox>
 							</cells>
 						</ColumnListItem>
