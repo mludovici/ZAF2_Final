@@ -234,7 +234,7 @@ sap.ui.define([
 				var oModel = this.getOwnerComponent().getModel();
 				oModel.update('FahrradmodellSet',{ properties: {
 					Preis: sap.ui.getCore().byId("input1"),
-					Farbe: this.getView().byId("input2"),
+					Farbe: sap.ui.getCore().byId("input2"),
 					Beschreibung: sap.ui.getCore().byId("input3")
 					
 				}
@@ -249,13 +249,7 @@ sap.ui.define([
 				
 			},
 
-			onEintragbearbeiten: function() {
-				debugger;
-			},
-
-			onEintragbearbeiten: function() {
-				debugger;
-			},
+			
 
             onClearFilter: function() {
                 this.getView().byId("filterCriteria").setValue(null);
