@@ -1,0 +1,53 @@
+<c:FragmentDefinition xmlns:f="sap.ui.layout.form" 
+                      xmlns:layout="sap.ui.layout" 
+                      xmlns:c="sap.ui.core" 
+                      xmlns:table="sap.ui.table" 
+                      xmlns="sap.m"
+                      xmlns:u="sap.ui.unified"
+                      xmlns:html="http://www.w3.org/1999/xhtml">
+    
+    <Page title="Fahrrad bauen" showHeader="true" showFooter="true">
+        <content>
+            <layout:BlockLayout background="Default" visible="true">
+                <layout:content>
+
+                    <layout:BlockLayoutRow scrollable="false">
+                        <layout:content>
+
+                            <layout:BlockLayoutCell width="1">
+                                <layout:content>
+                                    <HBox>
+                                        <Label text="Auswahl des Modells" required="true" />
+                                        <Select id="OriginSelect" width="auto" change="onSelectColor" class="sapUiTinyMarginEnd">
+                                            <c:ListItem id="BerLag1" text="Lager Berlin" />
+                                            <c:ListItem id="KoeLag1" text="Lager Köln" />
+                                            <c:ListItem id="MueLag1" text="Lager München" />
+                                        </Select>
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="Auswahl des Lagers" required="true" />
+                                        <Select id="ModelSelect" width="auto" change="onSelectColor">
+                                            <c:ListItem text="Dynamisch befüllen" />
+                                            <c:ListItem text="Dynamisch befüllen" />
+                                            <c:ListItem text="Dynamisch befüllen" />
+                                        </Select>
+                                    </HBox>
+                                    <HBox>
+                                        <Label text="Anzahl" required="true" />
+                                        <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
+                                    </HBox>
+                                        <Button press="onPressModelOrder" text="Fahrrad bauen" icon="sap-icon://add-coursebook"/>                       
+                                </layout:content>
+                            </layout:BlockLayoutCell>
+
+                            <layout:BlockLayoutCell width="1">
+                               
+                            </layout:BlockLayoutCell>
+
+                        </layout:content>
+                    </layout:BlockLayoutRow>
+                </layout:content>
+            </layout:BlockLayout>
+        </content>
+   </Page> 
+</c:FragmentDefinition>

@@ -18,6 +18,7 @@ sap.ui.define([
 		var Bearbeitungsmodus = 0;
         var oModel = null;
         var sortCriteria = null;
+		var _oRouter = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
 
 				oEinzelteilModell: null,
@@ -35,12 +36,11 @@ sap.ui.define([
 					this.oEinzelteilModell = new JSONModel();
 					this.oEinzelteilModell.loadData("/model/einzelteile.json");
 
-					
-					
 				},
 
 				init:function(){
                     this.oModel = this.getView().getModel("mainService");
+					_oRouter = this.getOwnerComponent().getRouter();
 				},
 
 			onChange: function(oEvent) {
@@ -63,6 +63,7 @@ sap.ui.define([
 			onSelectionChange: function(oEvent) {
 				var oItem = oEvent.getParameter("listItem");
 				var sPath = oItem.getBindingContext().getPath();
+				var modelKey = sPath.split("'")[1];
 
 				 var oView = this.getView();
 				 var that = this;
@@ -70,10 +71,29 @@ sap.ui.define([
 				 Fragment.load({
 					 name: "zaf2final.view.FragmentModelDetailPage",
 					 controller: this
-				 }).then(function(oFragment){ oFragment.bindElement(sPath);
+				 }).then(function(oFragment){ 
 					 that.getView().byId("dp1").insertContent(oFragment);
 					 oFragment.bindElement(sPath);
-					 
+					var lagerListe = sap.ui.getCore().byId("LagerorteListe");
+					lagerListe.getBinding("items").filter([new Filter({
+						path: 'Modellid',
+						operator: FilterOperator.EQ,
+						value1: modelKey
+					})]);
+					// lagerListe.unbindElement();
+					// lagerListe.setModel();
+					debugger;
+					//  var iZielID = sap.ui.getCore().byId("LagerorteListe");
+					//  var iFahrradID = sap.ui.getCore().byId("input3");
+					//  const path = this.getView().getModel().createKey("/FahrradmodellOrtSet", { 
+					//  	// Key(s) and value(s) of that entity set                    
+					// 	 "Modellid": iFahrradID, // with the value 999 for example                    
+					// 	 "Ortid": iZielID                                    
+					// 	});
+					
+					// var lagerBestand = sap.ui.getCore().byId("lagerBestand");
+					// lagerBestand.bindElement(path);
+						 
 				 });
 			},
 			
@@ -237,6 +257,10 @@ sap.ui.define([
 					
 			},
 
+			onEintragbearbeiten: function() {
+				debugger;
+			},
+
             onClearFilter: function() {
                 this.getView().byId("filterCriteria").setValue(null);
                 this.getView().byId("modelTable").getBinding("items").filter(null);
@@ -264,7 +288,56 @@ sap.ui.define([
                     var oBinding = otable.getBinding("items");
                     oBinding.sort([oSorter]);
                 }
-            }
+            },
+
+			navigateToLagerVerwaltung: function() {				
+				_oRouter.navTo("LagerVerwaltung");
+			},
+			formatLagerTypeOutput: function(oLType) {
+				if (oLType == 'L') {
+					return "Lagerort";
+				} else if (oLType == 'V') {
+					return "Verkaufsstelle"
+				}
+			},
+			onStockManagement: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			   
+				Fragment.load({
+				   name: "zaf2final.view.FragmentModelStock",               
+				   controller: this
+			   }).then(function(oFragment) { 
+				   that.getView().byId("dp1").insertContent(oFragment);
+			   });
+		   },
+
+		   onModelBuild: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			
+				Fragment.load({
+				name: "zaf2final.view.FragmentModelBuild",               
+				controller: this
+			}).then(function(oFragment) { 
+				that.getView().byId("dp1").insertContent(oFragment);
+			});
+		},
+
+		   onOrder: function() {
+				var oView = this.getView();
+				var that = this;
+				oView.byId('dp1').destroyContent();
+			
+				Fragment.load({
+				name: "zaf2final.view.FragmentModelOrder",               
+				controller: this
+			}).then(function(oFragment) { 
+				that.getView().byId("dp1").insertContent(oFragment);
+			});
+		}
             
 			
 		});

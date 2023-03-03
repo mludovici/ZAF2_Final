@@ -1,34 +1,36 @@
 .Header{
-    font-size: 40px;
+    font-size: 30px;
     margin-left: 14px;
 }
 
-.LabelCellPreis{
+.ModelDetailPageLabelPreis{
     font-size: 25px;
     margin-top: 15px;
 }
 
-.LabelCellBesch{
+.ModelDetailPageUeberschrBesch{
     font-size: 25px;
     margin-top: 30px;
     color: black;
     margin-bottom: 10px;
 }
 
-.LabelCellTeile{
+.ModelDetailPageUeberschrTeile{
     font-size: 25px;
     color: black;
     margin-bottom: 10px;
 }
 
-.TextCellPreis{
+.ModelDetailPageInput{
     font-size: 20px;
-    margin-top: 20px;
-    margin-left: 40px;
+    margin: 15px;
+    float: right;
+    color: black;
 }
 
-.TextCellBesch{
-    font-size: 20px;
+.ModelDetailPageSaveButton{
+    margin-top: 50px;
+    width: 100%;
 }
 
 .TextTabelleMasterPage{
@@ -48,7 +50,7 @@
 }
 
 .ModelCreatePageButton{
-    margin-top: 30px;
+    margin-top: 50px;
     width: 100%;
 }
 
