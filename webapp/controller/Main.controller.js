@@ -40,7 +40,7 @@ sap.ui.define([
 						btnIcon: "gt"
 					});
 
-					this.getView().setModel(this.oModelButton)
+					this.getView().setModel(this.oModelButton, 'modelJsonButton')
 
 				},
 

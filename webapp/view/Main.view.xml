@@ -26,7 +26,7 @@
 											<c:ListItem id="bestand" text="Bestand" />
 										</Select>
 										
-										<Button text="" icon="{= ${/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
+										<Button text="" icon="{= ${modelJsonButton>/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
 										<Input type="Number" />
 									</HBox>
 
