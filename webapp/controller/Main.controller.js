@@ -67,6 +67,8 @@ sap.ui.define([
 				} else {
 					this.oModelButton.setProperty("/btnIcon", "gt");
 				}
+				//execute filtering method for selected properties after toggling..
+				this.onFilterChange();
 			},
 			
 			onClearFilter: function() {
@@ -118,20 +120,6 @@ sap.ui.define([
 				var oTable = this.byId("modelTable");
 				var oBinding = oTable.getBinding("items");
 				oBinding.filter(aFilters);
-
-                // oModel.read("/FahrradmodellSet", {
-				// 	method: "GET",
-				// 	filters: aFilters,
-				// 	success: function(oData, oResponse) {
-				// 		console.log(oResponse, oData);
-				// 	},
-				// 	error: function(oError) {
-                //         console.log(oError);
-				// 		sap.m.MessageBox.alert("Error Saving Entries!!");
-				// 	}
-
-
-				// });
 			},
 
 			onQuanChange: function(oEvent){
@@ -301,8 +289,35 @@ sap.ui.define([
 				oBinding.filter(filters);
 			},
 
-			onFilterChange: function() {
-				
+			onFilterChange: function(oEvent) {
+				let bp_filter = null;
+				//select Table bindings for items
+				var oTable = this.byId("modelTable");
+				var oBinding = oTable.getBinding("items");				
+
+				// select filter Values gt/lt and Input Value and selected Property
+				let gtlt_filter_Value = this.oModelButton.getProperty("/btnIcon");
+				let selectFilterInputValue = this.getView().byId("selectFilterInput").getValue();
+				var filterSelectKey = this.getView().byId("filterItems").getSelectedItem().getKey()
+
+				//logic to create Filter for table
+				if (filterSelectKey == 'Preis' && selectFilterInputValue) {
+					bp_filter = new Filter({
+						path: filterSelectKey,
+						operator: gtlt_filter_Value == 'gt' ? FilterOperator.GT : FilterOperator.LT,
+						value1: selectFilterInputValue
+					});
+					oBinding.filter([bp_filter]);
+				} else if (filterSelectKey == 'Bestand' && selectFilterInputValue) {
+					bp_filter = new Filter({
+						path: filterSelectKey,
+						operator: gtlt_filter_Value == 'gt' ? FilterOperator.GT : FilterOperator.LT,
+						value1: selectFilterInputValue
+					});
+					oBinding.filter([bp_filter]);
+				} else {
+					return;
+				}
 			},
 
 			
