@@ -17,17 +17,15 @@
 						<Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
 							<content>
 								<VBox width="100%">
-                                    <Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/>
+									<Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/> 
 									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
-									<HBox justifyContent="SpaceBetween">
-										<Select autoAdjustWidth="true" id="filterItems" width="100%" change="onMainFilterChange" >
-											<c:ListItem id="empty" text="" />
-											<c:ListItem id="preis" text="Preis" />
-											<c:ListItem id="bestand" text="Bestand" />
-										</Select>
-										
-										<Button text="" icon="{= ${modelJsonButton>/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
-										<Input type="Number" />
+									 <HBox justifyContent="SpaceBetween">
+									  <Select autoAdjustWidth="true" id="filterItems" width="100%" change="onFilterChange" >
+									   <c:ListItem id="empty" text="" key="none" />
+									    <c:ListItem id="preis" text="Preis" key="Preis"/> <c:ListItem id="bestand" text="Bestand" key="Bestand" />
+										 </Select>
+										  <Button id="btnLTGT" text="" icon="{= ${modelJsonButton>/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
+										   <Input type="Number" id="selectFilterInput" valueLiveUpdate="false" submit="onFilterChange" />
 									</HBox>
 
 									<HBox width="100%" justifyContent="End" alignItems="Stretch">
@@ -78,6 +76,7 @@
 					<Button press="onModelBuild" id="build" text="Fahrrad bauen" class="ButtonHeader"/>
                     <Button press="onStockManagement" id="stock" text="Lagerverwaltung" class="ButtonHeader"/>
 					<Button press="onOrder" id="order" text="Bestellen" class="ButtonHeader"/>
+					<Button id="export" press="onExport" icon="sap-icon://download"/>
 				</headerContent>
 				<Page id="dp1" showHeader="false" showFooter="true">
 				

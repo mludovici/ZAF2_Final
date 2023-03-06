@@ -28,7 +28,7 @@
                                     <Input id="in_farbe" />
                                     <Label text="Beschreibung" class="ModelCreatePageLabel"/>
                                     <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" />
-                                    <Button press="onPressModelCreate" text="Modell erstellen" icon="sap-icon://add-coursebook" class="ModelCreatePageButton"/>
+                                    <Button press="onPressModelCreate" type="Emphasized" text="Modell erstellen" icon="sap-icon://add-coursebook" class="ModelCreatePageButton"/>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 

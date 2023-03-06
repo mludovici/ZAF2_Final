@@ -25,10 +25,10 @@
                                         <Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
                                             <content>
                                                 <Select autoAdjustWidth="false" id="filterLager" width="200px" change="onFilterLager" >
-                                                    <c:ListItem id="leer" text="" />
-                                                    <c:ListItem id="typ" text="Typ" />
-                                                    <c:ListItem id="ort" text="Ort" />
-                                                    <c:ListItem id="modell" text="Modell" />
+                                                    <c:ListItem id="leer" text="" key="none"/>
+                                                    <c:ListItem id="typ" text="Typ" key="Typ"/>
+                                                    <c:ListItem id="ort" text="Ort" key="Ort"/>
+                                                    <c:ListItem id="modell" text="Modell" key="Modell"/>
                                                 </Select>
                                                 <Button width="10px" icon="sap-icon://sort-ascending" press="onLagerSortAsc" />
                                                 <Button width="10px" icon="sap-icon://sort-descending" press="onLagerSortDesc" />

@@ -6,12 +6,14 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Sorter",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+	"sap/ui/core/util/Export",
+	"sap/ui/core/util/ExportTypeCSV"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, MessageBox, Fragment, Filter, FilterOperator, Sorter, MessageToast) {
+    function (Controller, JSONModel, MessageBox, Fragment, Filter, FilterOperator, Sorter, MessageToast, Export, ExportTypeCSV) {
         "use strict";
 
         var Produktgesamtpreis = 0;
@@ -46,6 +48,46 @@ sap.ui.define([
 					
 
 
+				},
+
+				onToggleIcon: function (oEvent) {
+					let iconValue = this.oModelButton.getProperty("/btnIcon");
+					if (iconValue == 'gt') {
+						this.oModelButton.setProperty("/btnIcon", "lt");
+					} else {
+						this.oModelButton.setProperty("/btnIcon", "gt");
+					}
+					//execute filtering method for selected properties after toggling..                
+					this.onFilterChange();
+				 },
+
+				 onFilterChange: function(oEvent) {
+					let bp_filter = null;
+					//select Table bindings for items                
+					var oTable = this.byId("modelTable");
+					var oBinding = oTable.getBinding("items"); 
+					 // select filter Values gt/lt and Input Value and selected Property                
+					 let gtlt_filter_Value = this.oModelButton.getProperty("/btnIcon"); 
+					 let selectFilterInputValue = this.getView().byId("selectFilterInput").getValue();
+					 var filterSelectKey = this.getView().byId("filterItems").getSelectedItem().getKey();
+					  //logic to create Filter for table                
+					  if (filterSelectKey == 'Preis' && selectFilterInputValue) {
+						bp_filter = new Filter({
+							path: filterSelectKey,
+							operator: gtlt_filter_Value == 'gt' ? FilterOperator.GT : FilterOperator.LT,
+							value1: selectFilterInputValue
+						});
+						oBinding.filter([bp_filter]);
+					} else if (filterSelectKey == 'Bestand' && selectFilterInputValue) {
+						bp_filter = new Filter({
+							path: filterSelectKey,
+							operator: gtlt_filter_Value == 'gt' ? FilterOperator.GT : FilterOperator.LT,
+							value1: selectFilterInputValue
+						});
+						oBinding.filter([bp_filter]);
+					} else {
+						oBinding.filter(null);
+					}
 				},
 
 				init:function(){
@@ -202,40 +244,39 @@ sap.ui.define([
 			onPressModelCreate: function(){
 	
 				this.getView().getModel().create('/FahrradmodellSet', {
-					Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
-					Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
-					Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
-					Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
-					Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() }, {
-																					success: function (oResultData){
-						
-																						var index = 1;
-																						while(index <= this.oEinzelteilModell.getProperty("/counter")){
-																							if(this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id") != ""){
-																								this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', { properties: {
-																									Modellid:		oResultData.Modellid,
-																									Einzelteilid: 	this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/id"),
-																									Anzahl: 		this.oEinzelteilModell.getProperty("/einzelteil/"+index+"/anzahl")
-																								}})
-																								
-																							}
-																							index = index + 1;
-																						}
-																		
-																						this.getView().getModel().submitChanges();
-																					}.bind(this),
-																					error: function (oResultData){
-																						
-																					} });
-				// this.getView().getModel().createEntry('/FahrradmodellSet', { properties: {
-				// 																		Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
-				// 																		Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),
-				// 																	    Preis:			sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
-				// 																		Farbe:			sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
-				// 																	    Beschreibung: 	sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue() } });
-				
-
-				
+					Modellname: sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
+					Url: sap.ui.getCore().byId("CreatePage--in_url").getValue(),
+					Preis: sap.ui.getCore().byId("CreatePage--in_preis").getValue(),
+					Farbe: sap.ui.getCore().byId("CreatePage--in_farbe").getValue(),
+					Beschreibung: sap.ui.getCore().byId("CreatePage--in_beschreibung").getValue()
+				}, {
+					success: function (oResultData) {
+						var index = 1;
+						while (index <= this.oEinzelteilModell.getProperty("/counter")) {
+							if (this.oEinzelteilModell.getProperty("/einzelteil/" + index + "/id") != "") {
+								this.getView().getModel().createEntry('/FahrradmodellEinzelteilSet', {
+									properties: {
+										Modellid: oResultData.Modellid,
+										Einzelteilid: this.oEinzelteilModell.getProperty("/einzelteil/" + index + "/id"),
+										Anzahl: this.oEinzelteilModell.getProperty("/einzelteil/" + index + "/anzahl")
+									}
+								})
+							}
+							index = index + 1;
+						}
+						this.getView().getModel().submitChanges();
+						MessageBox.show(
+							"Fahrradmodell und Teileliste erfolgreich angelegt", {
+							icon: MessageBox.Icon.SUCCESS,
+							title: "Erfolg",
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.YES,
+							onClose: function (oAction) { }
+						});
+					}.bind(this),
+					error: function (oResultData) {
+					}
+				});
 				
 
 			},
@@ -271,22 +312,29 @@ sap.ui.define([
 			},
 			onEintragbearbeiten: function(oEvent){
                 var oModel = this.getOwnerComponent().getModel();
-                oModel.update('FahrradmodellSet',{ properties: {
-                    Preis: sap.ui.getCore().byId("input1"),
-                    Farbe: sap.ui.getCore().byId("input2"),
-                    Beschreibung: sap.ui.getCore().byId("input3")
-                }
-                });
-                MessageBox.show(
-                    "Eintrag gespeichert", {
-                        icon: MessageBox.Icon.SUCCESS,
-                        title: "Änderung",
-                        actions: [MessageBox.Action.OK],
-                        emphasizedAction: MessageBox.Action.YES,
-                        onClose: function (oAction) {  }
-                    }
-                );
-                oModel.submitChanges();
+                // oModel.update(oEvent.getSource().getParent().getParent().getBindingContext().getPath(),{ properties: {
+                //     Preis: sap.ui.getCore().byId("input1"),
+                //     Farbe: sap.ui.getCore().byId("input2"),
+                //     Beschreibung: sap.ui.getCore().byId("input3")
+                // }
+                // });
+                oModel.submitChanges({ 
+					success: function (oData) {
+						
+					 },
+					error: function (oError) {
+						console.log("ERROR:", oError)
+					},
+				});
+				MessageBox.show(
+					"Eintrag gespeichert", {
+						icon: MessageBox.Icon.SUCCESS,
+						title: "Änderung",
+						actions: [MessageBox.Action.OK],
+						emphasizedAction: MessageBox.Action.YES,
+						onClose: function (oAction) {  }
+					}
+				);
             },
 
 			onSelectAreaType: function(oEvent) {
@@ -361,13 +409,14 @@ sap.ui.define([
                 }
             },
 
-			onFilterLager: function(oEvent) {               
-                sortLagerCriteria = oEvent.getParameter("selectedItem").getText();
+			onFilterLager: function(oEvent) {     
+                sortLagerCriteria = oEvent.getParameter("selectedItem").getKey();
             },
 
 			onLagerSortAsc: function(oEvent) {
-                var otable = this.getView().byId("TabUebersicht");
-               
+                var otable = sap.ui.getCore().byId("TabUebersicht");
+                         
+				debugger;
                 if (sortLagerCriteria) {
                     var oSorter = new Sorter(sortLagerCriteria, false);    
                     var oBinding = otable.getBinding("items");
@@ -376,7 +425,7 @@ sap.ui.define([
             },
 
 			onLagerSortDesc: function(oEvent) {
-                var otable = this.getView().byId("TabUebersicht");
+                var otable = sap.ui.getCore().byId("TabUebersicht");
                 if (sortLagerCriteria) {
                     var oSorter = new Sorter(sortLagerCriteria, true);    
                     var oBinding = otable.getBinding("items");
@@ -417,6 +466,7 @@ sap.ui.define([
 				controller: this
 			}).then(function(oFragment) { 
 				that.getView().byId("dp1").insertContent(oFragment);
+
 			});
 		},
 
@@ -501,7 +551,7 @@ sap.ui.define([
 					}
 				);
 				
-			} else if(sap.ui.getCore().byId("anzahl").getValue()<= 0){
+			} else if(sap.ui.getCore().byId("anzahl").getValue() <= 0){
 				
 				MessageBox.show(
 					"Bitte geben sie eine Zahl größer als 0", {
@@ -568,6 +618,38 @@ sap.ui.define([
 
 		},
 
+		onExport: function(){
+			var oModelExport = this.getView().getModel();
+			var oExportData = new Export({
+				exportType: new ExportTypeCSV({
+					separatorChar : ";",}),
+					models: oModelExport,
+					rows : {
+						path: "/FahrradmodellSet"
+					},
+					columns: [{
+						name: "ModellID",
+						template: {
+							content: "{Modellid}"
+						}
+					},
+						{
+						name: "Fahrradmodell",
+						template: {
+							content: "{Modellname}"
+						}
+					},
+					{
+						name: "Bestand",
+						template: {
+							content: "{Bestand}"
+						}
+					}
+					]
+			});
+			oExportData.saveFile();
+		},
+
 		onSelectZiel: function(oEvent){
 			var oSelectFahrrad = sap.ui.getCore().byId("fahrrad");
 			var iFahrradID = oSelectFahrrad.getSelectedKey();
@@ -606,9 +688,9 @@ sap.ui.define([
 			var lager = sap.ui.getCore().byId("LagerSelect").getSelectedKey();
 			var vorh = Number(sap.ui.getCore().byId("inputVor").getValue());
 			var anzahlBauen = Number(sap.ui.getCore().byId("anzbest").getValue());
-			if (vorh == 0) {
+			if (anzahlBauen == 0) {
 				MessageBox.show(
-					"Bitte wählen Sie eine Zahl größer als 0", {
+					"Bitte wählen Sie eine Zahl größer als 0!", {
 					icon: MessageBox.Icon.ERROR,
 					title: "Fehler",
 					actions: [MessageBox.Action.OK],
@@ -616,6 +698,7 @@ sap.ui.define([
 					onClose: function (oAction) { }
 				}
 				);
+				return;
 			}
 			const path2 = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
 				// Key(s) and value(s) of that entity set
@@ -630,6 +713,9 @@ sap.ui.define([
 						Ortid: lager,
 						Bestand: anzahlBauen
 					}
+				});
+				oModel.update("/FahrradmodellEinzelteilSet(Modellid='"+fahrrad+"',Einzelteilid='1')",   {
+					Anzahl: 2
 				});
 				oModel.submitChanges();
 				MessageBox.show(

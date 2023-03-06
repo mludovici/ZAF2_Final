@@ -1,8 +1,14 @@
 <c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
-    <Page Title="Willkommen bei FunnyBike!" id="lp1" showHeader="true" showFooter="true">
+    <Page id="lp1" showHeader="true" showFooter="true">
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Label text="Willkommen bei FunnyBike" design="Bold" />
+                </contentLeft>
+            </Bar>
+        </customHeader>
         <content>
             <Image src="https://posterland.de/wp-content/uploads/sites/4/Bodart_Orange_Bike-768x544.jpg" />
         </content>
-
     </Page>
 </c:FragmentDefinition>
