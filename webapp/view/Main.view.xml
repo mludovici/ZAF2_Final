@@ -20,7 +20,7 @@
                                     <Button text="Modell erstellen" press ="onCreateModel" id="addBtn" icon="sap-icon://add" width="100%" class="sapUiSmallMarginBottom"/>
 									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
 									<HBox justifyContent="SpaceBetween">
-										<Select autoAdjustWidth="true" id="filterItems" width="100%" change="onFilterChange" >
+										<Select autoAdjustWidth="true" id="filterItems" width="100%" change="onMainFilterChange" >
 											<c:ListItem id="empty" text="" />
 											<c:ListItem id="preis" text="Preis" />
 											<c:ListItem id="bestand" text="Bestand" />
@@ -31,7 +31,7 @@
 									</HBox>
 
 									<HBox width="100%" justifyContent="End" alignItems="Stretch">
-									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onFilterItemsChange" >
+									<Select autoAdjustWidth="false" id="filterCriteria" width="100%" change="onMainFilterItemsChange" >
 										<layoutData>
 											<FlexItemData growFactor="4" />
 										</layoutData>
@@ -40,9 +40,9 @@
                                         <c:ListItem id="2" text="Preis" />
                                         <c:ListItem id="3" text="Bestand" />
                                     </Select>
-									<Button press="onClearFilter" icon="sap-icon://clear-filter"/>
-                                    <Button width="10px" id="__button1" icon="sap-icon://sort-ascending" press="onSortAsc" />
-                                    <Button width="10px" id="__button2" icon="sap-icon://sort-descending" press="onSortDesc" />
+                                    <Button width="10px" id="__button1" icon="sap-icon://sort-ascending" press="onMainSortAsc" />
+                                    <Button width="10px" id="__button2" icon="sap-icon://sort-descending" press="onMainSortDesc" />
+									<Button press="onMainClearFilter" icon="sap-icon://clear-filter"/>
 									</HBox>
 									
 								</VBox>
@@ -75,10 +75,9 @@
 			
 			<Page>
 				 <headerContent>
-					<Button press="onModelBuild" id="about" text="Fahrrad bauen" class="ButtonHeader"/>
+					<Button press="onModelBuild" id="build" text="Fahrrad bauen" class="ButtonHeader"/>
                     <Button press="onStockManagement" id="stock" text="Lagerverwaltung" class="ButtonHeader"/>
 					<Button press="onOrder" id="order" text="Bestellen" class="ButtonHeader"/>
-                    <Button id="dropDownMenu" text="" icon="sap-icon://drop-down-list" press="navToTable" class="ButtonHeaderDropDown"/>
 				</headerContent>
 				<Page id="dp1" showHeader="false" showFooter="true">
 				
@@ -87,6 +86,4 @@
 			</Page>
 		</detailPages>
 	</SplitApp>
-        <!-- </content>
-    </Page> -->
 </mvc:View>

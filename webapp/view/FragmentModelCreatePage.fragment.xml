@@ -20,32 +20,23 @@
                                 <layout:content>
                                     <Label text="Modellname" required="true" />
                                     <Input id="in_modellname" />
-                                    <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
+                                    <Label text="Bild URL" required="true" class="ModelCreatePageLabel"/>
                                     <Input id="in_url" />
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
                                     <Input id="in_preis" />
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
                                     <Input id="in_farbe" />
-                                    <Label text="Beschreibung" />
+                                    <Label text="Beschreibung" class="ModelCreatePageLabel"/>
                                     <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" />
-                                    <layout:HorizontalLayout class="ModelCreatePageButton">
-                                        <u:FileUploader
-                                            id="fileUploader"
-                                            name="myFileUpload"
-                                            uploadUrl="upload/"
-                                            tooltip="Upload your file to the local server"
-                                            uploadComplete="handleUploadComplete"/>
-                                        <Button
-                                            text="Upload File"
-                                            press="handleUploadPress"
-                                            class="ModelCreatePageButtonUpload" />
-                                    </layout:HorizontalLayout>
                                     <Button press="onPressModelCreate" text="Modell erstellen" icon="sap-icon://add-coursebook" class="ModelCreatePageButton"/>
                                 </layout:content>
                             </layout:BlockLayoutCell>
 
                             <layout:BlockLayoutCell width="1">
                                 <layout:VerticalLayout width="100%">
+                                    <layout:VerticalLayout width="100%" id="layout1">
+                                        <Label text="Teileliste" class="ModelDetailPageUeberschrTeile" />
+                                    </layout:VerticalLayout>
                                      <Table id="CreateTabTeileListe" items="{/EinzelteilSet}">
                                         <columns>
                                             <Column width="12em">

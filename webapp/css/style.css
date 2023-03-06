@@ -57,3 +57,10 @@
 .ModelCreatePageButtonUpload{
     margin-left: 5px;
 }
+
+.title{
+    font-size: 30px;
+    text-align: center;
+    text-decoration: solid;
+    font-weight: bold;
+}

@@ -1,54 +1,84 @@
-<c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m" xmlns:u="sap.ui.unified" xmlns:html="http://www.w3.org/1999/xhtml">
+<c:FragmentDefinition xmlns:f="sap.ui.layout.form" 
+                      xmlns:l="sap.ui.layout" 
+                      xmlns:c="sap.ui.core" 
+                      xmlns:table="sap.ui.table" 
+                      xmlns="sap.m" 
+                      xmlns:u="sap.ui.unified" 
+                      xmlns:html="http://www.w3.org/1999/xhtml"
+                      xmlns:grid="sap.ui.layout.cssgrid"
+                      displayBlock="true">
     <Page title="Modell bestellen" showHeader="true" showFooter="true">
         <content>
-            <layout:BlockLayout background="Default" visible="true">
-                <layout:content>
-                    <layout:BlockLayoutRow scrollable="false">
-                        <layout:content>
-                            <layout:BlockLayoutCell width="1">
-                                <layout:content>
-                                    <HBox>
-                                        <Label text="Von" required="true" />
-                                        <Select  id="von" width="auto" change="onSelectLager" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }">
-                                            <c:ListItem id="lager1" key="{Ortid}" text="{Ort}" />
-                                        </Select>
-                                    </HBox>
-                                    <HBox>
-                                        <Label text="Modell" required="true" />
-                                         <Select id="fahrrad" width="auto"  change="onSelectLager" items="{/FahrradmodellSet}">
-                                            <c:ListItem key="{Modellid}" text="{Modellname}" />
-                                    </Select>
-                                    </HBox>
-                                    <HBox>
-                                        <Label text="Verfügbar" required="true" />
-                                       <Input value="{Bestand}" id="vorhanden" />
-                                    </HBox>
-                                </layout:content>
-                            </layout:BlockLayoutCell>
-
-                            <layout:BlockLayoutCell width="1">
-                                <HBox>
-                                    <Label text="Nach" required="true" />
-                                    <Select id="ziel" width="auto" change="onSelectZiel" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }" >
-                                        <c:ListItem key="{Ortid}" id="lager2" text="{Ort}" />
-                                    </Select>
-                                     <Input value="{Bestand}" id="bestandziel" />
-                                </HBox>
-                                <HBox>
-                                    <Label text="Anzahl" required="true" />
-                                    <StepInput width="auto" min="0" id="anzahl" step="1" change="onQuanChange" visible="true" />
-                                </HBox>
-
-                                <Button press="onPressModelOrder" text="Modell bestellen" icon="sap-icon://add-coursebook" />
-                            </layout:BlockLayoutCell>
-                        </layout:content>
-                    </layout:BlockLayoutRow>
-                </layout:content>
-            </layout:BlockLayout>
-
-            <html:hr />
-
-           
+            <l:Grid class="sapUiMediumMarginTop">            
+                <Label text="Von" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <Select id="von" width="200px" change="onSelectLager" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }">
+                    <c:ListItem id="lager1" key="{Ortid}" text="{Ort}" />
+                    <layoutData>
+                        <l:GridData span="XL4 L4 M4 S4"/>
+                    </layoutData>
+                </Select>
+                <Label text="Nach" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <Select id="ziel" width="200px" change="onSelectZiel" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }" >
+                    <c:ListItem key="{Ortid}" id="lager2" text="{Ort}" />
+                    <layoutData>
+                        <l:GridData span="XL4 L4 M4 S4"/>
+                    </layoutData>
+                </Select>
+                <Label text="Modell" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <Select id="fahrrad" width="200px"  change="onSelectLager" items="{/FahrradmodellSet}">
+                    <c:ListItem key="{Modellid}" text="{Modellname}" />
+                    <layoutData>
+                        <l:GridData span="XL10 L10 M10 S10"/>
+                    </layoutData>
+                </Select>
+                <Label text="Bestand" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <Input width="200px" value="{Bestand}" id="vorhanden">
+                    <layoutData>
+                        <l:GridData span="XL4 L4 M4 S4"/>
+                    </layoutData>
+                </Input>
+                <Label text="Bestand" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <Input width="200px" value="{Bestand}" id="bestandziel">
+                    <layoutData>
+                        <l:GridData span="XL4 L4 M4 S4"/>
+                    </layoutData>
+                </Input>
+                <Label text="Anzahl" class="sapUiTinyMarginTop">
+                    <layoutData>
+                        <l:GridData span="XL2 L2 M2 S2"/>
+                    </layoutData>
+                </Label>
+                <StepInput width="200px" min="0" id="anzahl" step="1" change="onQuanChange" visible="true">
+                    <layoutData>
+                        <l:GridData span="XL10 L10 M10 S10"/>
+                    </layoutData>
+                </StepInput>
+                <Button press="onPressModelOrder" text="Modell bestellen" icon="sap-icon://add-coursebook" type="Emphasized">
+                	<layoutData>
+                        <l:GridData indent="XL2 L2 M2 S2" span="XL12 L12 M12 S12"/>
+                    </layoutData>
+                </Button>
+            </l:Grid>
         </content>
     </Page>
 </c:FragmentDefinition>

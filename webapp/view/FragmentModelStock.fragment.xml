@@ -6,250 +6,69 @@
     xmlns="sap.m"
     xmlns:html="http://www.w3.org/1999/xhtml">
  
-    <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det1" showHeader="true" showFooter="true">
-                <content>
-                    <layout:BlockLayout background="Default" visible="true">
-                        <layout:content>
- 
-                            <layout:BlockLayoutRow scrollable="false">
-                                <layout:content>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                         <layout:VerticalLayout width="100%">
-                                            <Label text="Lager Berlin" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabLagerBerlin"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                    </layout:BlockLayoutCell>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:VerticalLayout width="100%">
-                                            <Label text="Verkaufsstelle Berlin" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabVerkaufBerlin"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                        
-                                    </layout:BlockLayoutCell>
- 
-                                </layout:content>
-                            </layout:BlockLayoutRow>
-                        </layout:content>
-                    </layout:BlockLayout>
+    <Page title="Lagerverwaltung"  id="det1" showHeader="true" showFooter="true">
+        <content>
+            <layout:BlockLayout background="Default" visible="true">
+                <layout:content>
 
-                            <html:hr />
-
-                    <layout:BlockLayout background="Default" visible="true">
+                    <layout:BlockLayoutRow scrollable="false">
                         <layout:content>
 
-                            <layout:BlockLayoutRow scrollable="false">
-                                <layout:content>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                         <layout:VerticalLayout width="100%">
-                                            <Label text="Lager Köln" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabLagerKoeln"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                    </layout:BlockLayoutCell>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:VerticalLayout width="100%">
-                                            <Label text="Verkaufsstelle Köln" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabVerkaufKoeln"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                        
-                                    </layout:BlockLayoutCell>
- 
-                                </layout:content>
-                            </layout:BlockLayoutRow>
- 
+                            <layout:BlockLayoutCell width="1">
+                                    <layout:VerticalLayout width="100%">
+                                    <Label text="Übersichte Lagerorte und Verkaufsstellen" class="ModelDetailPageUeberschrTeile"/>
+                                </layout:VerticalLayout>
+                                <Table id="TabUebersicht"
+                                        items="{
+                                            path: '/FahrradmodellOrtBestandSet'}">
+                                    <headerToolbar>
+                                        <Toolbar height="auto" enabled="true" visible="true" width="auto" design="Solid">
+                                            <content>
+                                                <Select autoAdjustWidth="false" id="filterLager" width="200px" change="onFilterLager" >
+                                                    <c:ListItem id="leer" text="" />
+                                                    <c:ListItem id="typ" text="Typ" />
+                                                    <c:ListItem id="ort" text="Ort" />
+                                                    <c:ListItem id="modell" text="Modell" />
+                                                </Select>
+                                                <Button width="10px" icon="sap-icon://sort-ascending" press="onLagerSortAsc" />
+                                                <Button width="10px" icon="sap-icon://sort-descending" press="onLagerSortDesc" />
+                                                <Button press="onLagerClearFilter" icon="sap-icon://clear-filter"/>
+                                            </content>
+                                        </Toolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column width="5em">
+                                            <Text text="Typ" />
+                                        </Column>
+                                        <Column width="12em">
+                                            <Text text="Ort" />
+                                        </Column>
+                                        <Column width="12em">
+                                            <Text text="Modell" />
+                                        </Column>
+                                        <Column width="12em">
+                                            <Text text="Bestand" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{Typ}" />
+                                                <Text text="{Ort}" />
+                                                <Text text="{Modell}" />
+                                                <Text text="{Bestand}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </layout:BlockLayoutCell>
+
+                            
                         </layout:content>
-                    </layout:BlockLayout>
+                    </layout:BlockLayoutRow>
 
-                    <html:hr />
-
-                    <layout:BlockLayout background="Default" visible="true">
-                        <layout:content>
-
-                            <layout:BlockLayoutRow scrollable="false">
-                                <layout:content>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                         <layout:VerticalLayout width="100%">
-                                            <Label text="Lager München" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabLagerMuenchen"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                    </layout:BlockLayoutCell>
- 
-                                    <layout:BlockLayoutCell width="1">
-                                        <layout:VerticalLayout width="100%">
-                                            <Label text="Verkaufsstelle München" class="ModelDetailPageUeberschrTeile"/>
-                                        </layout:VerticalLayout>
-                                        <Table id="TabVerkaufMuenchen"
-                                               items="{
-                                                   path: 'ToFahrradmodellEinzelteil',
-                                                   parameters: {
-                                                        expand: 'ToEinzelteil'
-                                                   }
-                                                   
-                                                }">
-                                            <columns>
-                                                <Column width="12em">
-                                                    <Text text="Bestandteile" />
-                                                </Column>
-                                                <Column width="12em">
-                                                    <Text text="Menge" />
-                                                </Column>
-                                            </columns>
-                                            <items>
-                                                <ColumnListItem>
-                                                    <cells>
-                                                        <ObjectIdentifier title="{ToEinzelteil/Einzelteilname}" />
-                                                        <Text text="{Anzahl}" />
-                                                    </cells>
-                                                </ColumnListItem>
-                                            </items>
-                                        </Table>
-                                        
-                                    </layout:BlockLayoutCell>
- 
-                                </layout:content>
-                            </layout:BlockLayoutRow>
- 
-                        </layout:content>
-                    </layout:BlockLayout>
-                </content>
-
-                <footer>
-                    <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
-                        <content>
-                            <ToolbarSpacer width=""/>
-                            <Text text="Warenkorbsumme: " />
-                            <Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
-                                                valueStateText="Invalid entry" maxLength="0"/>
-                        </content>
-                    </OverflowToolbar>
-                </footer>
-                <headerContent/>
-            </Page>
- 
-   
- 
+                </layout:content>
+            </layout:BlockLayout>
+        </content>
+    </Page>
 </c:FragmentDefinition>

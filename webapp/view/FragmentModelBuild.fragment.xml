@@ -1,53 +1,98 @@
 <c:FragmentDefinition xmlns:f="sap.ui.layout.form" 
-                      xmlns:layout="sap.ui.layout" 
+                      xmlns:l="sap.ui.layout" 
                       xmlns:c="sap.ui.core" 
                       xmlns:table="sap.ui.table" 
                       xmlns="sap.m"
                       xmlns:u="sap.ui.unified"
-                      xmlns:html="http://www.w3.org/1999/xhtml">
+                      xmlns:html="http://www.w3.org/1999/xhtml"
+                      xmlns:grid="sap.ui.layout.cssgrid"
+                      displayBlock="true">
     
     <Page title="Fahrrad bauen" showHeader="true" showFooter="true">
         <content>
-            <layout:BlockLayout background="Default" visible="true">
-                <layout:content>
+             <l:BlockLayout background="Default" visible="true">
+                <l:content>
+                    <l:BlockLayoutRow>
+                        <l:content>
+                            <l:BlockLayoutCell width="1">
+                                <l:content>
+                                    <l:VerticalLayout width="100%" id="layout0">
+                                        <l:Grid class="sapUiSmallMarginTop">
+                                            <Label text="Modell" required="true" class="sapUiTinyMarginTop">
+                                                <layoutData>
+                                                        <l:GridData span="XL3 L3 M12 S12"/>
+                                                </layoutData>
+                                            </Label>
+                                            <Select id="OriginSelect" width="300px"  items="{/FahrradmodellSet}" change="onselectBearbeitung" class="sapUiTinyMarginEnd">                                            
+                                            <c:ListItem id="mname" key="{Modellid}" text="{Modellname}" />
+                                                <layoutData>
+                                                        <l:GridData span="XL9 L9 M9 S9" linebreakM="true"/>
+                                                </layoutData>
+                                            </Select>
+                                            <Label text="Lager" required="true" class="sapUiTinyMarginTop">
+                                                 <layoutData>
+                                                        <l:GridData span="XL3 L3 M12 S12"/>
+                                                </layoutData>
+                                            </Label>
+                                            <Select id="LagerSelect" width="300px" change="onselectBearbeitung" items="{ path: '/LagerortSet', parameters: { select: 'Ort,Ortid' }, filters: [{ path: 'Typ', operator: 'EQ', value1: 'L' }] }" >                                            
+                                            <c:ListItem key="{Ortid}" text="{Ort}" />
+                                                <layoutData>
+                                                        <l:GridData span="XL9 L9 M9 S9" linebreakM="true"/>
+                                                </layoutData>
+                                            </Select>
+                                            <Label text="Anzahl" required="true" class="sapUiTinyMarginTop">
+                                                 <layoutData>
+                                                        <l:GridData span="XL3 L3 M12 S12"/>
+                                                </layoutData>
+                                            </Label>
+                                            <StepInput width="auto" value="0" min="0" id="anzbest" step="1" change="onQuanChange" visible="true">
+                                                <layoutData>
+                                                        <l:GridData span="XL9 L9 M9 S9" linebreakM="true"/>
+                                                </layoutData>
+                                            </StepInput>
+                                            <Input value="{Bestand}" id="inputVor" visible="false"/>
+                                            <Button press="onBauen" text="Fahrrad bauen" icon="sap-icon://add-coursebook" type="Emphasized">
+                                                <layoutData>
+                                                        <l:GridData indent="XL3 L3 M0 S0" span="XL12 L12 M12 S12"/>
+                                                </layoutData>
+                                            </Button>
+                                        </l:Grid>
+                                    </l:VerticalLayout>
+                                </l:content>
+                            </l:BlockLayoutCell>
 
-                    <layout:BlockLayoutRow scrollable="false">
-                        <layout:content>
+                            <l:BlockLayoutCell width="1">
+                                <l:VerticalLayout width="100%" id="layout2">
+                                    <Label text="Materiallager" class="ModelDetailPageUeberschrTeile sapUiSmallMarginTop" />
+                                </l:VerticalLayout>
+                                <Table
+                                    id="TabMaterialListe"
+                                    items="{
+                                                   path: '/EinzelteilMateriallagerSet'}">
+                                    <columns>
+                                        <Column width="12em">
+                                            <Text text="Bestandteile" />
+                                        </Column>
+                                        <Column width="12em">
+                                            <Text text="Menge" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ObjectIdentifier title="{Einzelteilname}" />
+                                                <Text text="{Bestand}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </l:BlockLayoutCell>
 
-                            <layout:BlockLayoutCell width="1">
-                                <layout:content>
-                                    <HBox>
-                                        <Label text="Auswahl des Modells" required="true" />
-                                        <Select id="OriginSelect" width="auto" change="onSelectColor" class="sapUiTinyMarginEnd">
-                                            <c:ListItem id="BerLag1" text="Lager Berlin" />
-                                            <c:ListItem id="KoeLag1" text="Lager Köln" />
-                                            <c:ListItem id="MueLag1" text="Lager München" />
-                                        </Select>
-                                    </HBox>
-                                    <HBox>
-                                        <Label text="Auswahl des Lagers" required="true" />
-                                        <Select id="ModelSelect" width="auto" change="onSelectColor">
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                            <c:ListItem text="Dynamisch befüllen" />
-                                        </Select>
-                                    </HBox>
-                                    <HBox>
-                                        <Label text="Anzahl" required="true" />
-                                        <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
-                                    </HBox>
-                                        <Button press="onPressModelOrder" text="Fahrrad bauen" icon="sap-icon://add-coursebook"/>                       
-                                </layout:content>
-                            </layout:BlockLayoutCell>
+                        </l:content>
+                    </l:BlockLayoutRow>
+                </l:content>
+            </l:BlockLayout>
 
-                            <layout:BlockLayoutCell width="1">
-                               
-                            </layout:BlockLayoutCell>
-
-                        </layout:content>
-                    </layout:BlockLayoutRow>
-                </layout:content>
-            </layout:BlockLayout>
         </content>
    </Page> 
 </c:FragmentDefinition>

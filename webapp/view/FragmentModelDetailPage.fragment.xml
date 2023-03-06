@@ -1,6 +1,8 @@
 <c:FragmentDefinition xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:c="sap.ui.core" xmlns:table="sap.ui.table" xmlns="sap.m">
     <Page title="Modelldetails" id="det1" showHeader="true" showFooter="true">
-        <Button text="{settings>/text}" press="onBearbeitungsmodus" />
+        <headerContent>
+            <Button text="{settings>/text}" press="onBearbeitungsmodus" />
+        </headerContent>
         <content>
             <f:SimpleForm editable="true" backgroundDesign="Transparent">
                 <Text text="{Modellname}" class="Header" />
@@ -24,7 +26,6 @@
                                         </HBox>
                                         <Label width="auto" text="Beschreibung" class="ModelDetailPageUeberschrBesch" />
                                         <TextArea rows="5" width="100%" value="{Beschreibung}" id="input3" enabled="{settings>/edit}" class="sapUiSmallMarginTop" />
-                                        <Button text="Eintrag sichern" press="onEintragbearbeiten" class="ModelDetailPageSaveButton" />
                                     </layout:VerticalLayout>
 
                                     <List
@@ -46,18 +47,18 @@
                                                 <ToolbarSpacer />
                                                 <Select id="selectAreaType" width="auto" change="onSelectAreaType">
                                                     <c:ListItem id="none" text="" key="none" />
-                                                    <c:ListItem id="ls" text="Lagerort" key="L"/>
+                                                    <c:ListItem id="ls" text="Lagerort" key="L" />
                                                     <c:ListItem id="vs" text="Verkaufsstelle" key="V" />
                                                 </Select>
                                             </OverflowToolbar>
                                         </headerToolbar>
                                         <items>
                                             <!-- <StandardListItem
-                                    title="{ToLagerort/Ort}"
-                                    description="{Typ}"
-                                    icon="{ProductPicUrl}"
-                                    iconDensityAware="false"
-                                    iconInset="false" /> -->
+                                            title="{ToLagerort/Ort}"
+                                            description="{Typ}"
+                                            icon="{ProductPicUrl}"
+                                            iconDensityAware="false"
+                                            iconInset="false" /> -->
                                             <ObjectListItem id="item1" title="{ToLagerort/Ort}" type="Active" press="onItemPressed">
                                                 <ObjectAttribute text="Typ: { path: 'ToLagerort/Typ', formatter: '.formatLagerTypeOutput'}" />
                                                 <firstStatus>
@@ -107,14 +108,11 @@
             </layout:BlockLayout>
         </content>
         <footer>
-            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
-                <content>
-                    <ToolbarSpacer width="" />
-                    <Text text="Warenkorbsumme: " />
-                    <Input showValueHelp="false" id="gesamt" editable="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" />
-                </content>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="{settings>/edit}">
+                <ToolbarSpacer />
+                <Button text="Eintrag sichern" press="onEintragbearbeiten" class="ModelDetailPageSaveButton" type="Emphasized" enabled="{settings>/edit}" width="10rem"/>
+                <Button text="Abbruch" press="onAbbruch" class="ModelDetailPageSaveButton" enabled="{settings>/edit}" width="10rem"/>
             </OverflowToolbar>
         </footer>
-        <headerContent />
     </Page>
 </c:FragmentDefinition>

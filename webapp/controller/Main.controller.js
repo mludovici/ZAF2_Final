@@ -18,6 +18,7 @@ sap.ui.define([
 		var Bearbeitungsmodus = 0;
         var oModel = null;
         var sortCriteria = null;
+		var sortLagerCriteria = null;
 		var _oRouter = null;
 		var _oBindingItem = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
@@ -41,12 +42,22 @@ sap.ui.define([
 					});
 
 					this.getView().setModel(this.oModelButton, 'modelJsonButton')
+					
+					
+
 
 				},
 
 				init:function(){
                     this.oModel = this.getView().getModel("mainService");
 					_oRouter = this.getOwnerComponent().getRouter();
+					var that = this;
+					Fragment.load({
+						name: "zaf2final.view.FragmentLandingPage",
+						controller: this
+					}).then(function(oFragment){ 
+						that.getView().byId("dp1").insertContent(oFragment);
+					   });
 				},
 
 			onChange: function(oEvent) {
@@ -229,7 +240,21 @@ sap.ui.define([
 
 			},
 
-	
+			onAbbruch:function(){
+				if(Bearbeitungsmodus == 0){
+					this.getView().getModel("settings").setProperty("/edit", true);
+					this.getView().getModel("settings").setProperty("/text", "Anzeigemodus");
+					Bearbeitungsmodus = 1;
+					MessageToast.show("Sie befinden sich nun im Bearbeitungsmodus");
+				} else {
+					this.getView().getModel("settings").setProperty("/edit", false);
+					this.getView().getModel("settings").setProperty("/text", "Bearbeitungsmodus");
+					MessageToast.show("Bearbeitung abgebrochen");
+					Bearbeitungsmodus = 0;
+					this.getView().getModel().resetChanges();
+				}
+			},
+
 			onBearbeitungsmodus: function(oEvent){
 				if(Bearbeitungsmodus == 0){
 					this.getView().getModel("settings").setProperty("/edit", true);
@@ -245,23 +270,24 @@ sap.ui.define([
 
 			},
 			onEintragbearbeiten: function(oEvent){
-				var oModel = this.getOwnerComponent().getModel();
-				oModel.update('/FahrradmodellSet',{ properties: {
-					Preis: sap.ui.getCore().byId("input1").getValue(),
-					Farbe: sap.ui.getCore().byId("input2").getValue(),
-					Beschreibung: sap.ui.getCore().byId("input3").getValue()
-					
-				}
-	
-				});
-				
-				oModel.submitChanges();
-
-
-
-
-				
-			},
+                var oModel = this.getOwnerComponent().getModel();
+                oModel.update('FahrradmodellSet',{ properties: {
+                    Preis: sap.ui.getCore().byId("input1"),
+                    Farbe: sap.ui.getCore().byId("input2"),
+                    Beschreibung: sap.ui.getCore().byId("input3")
+                }
+                });
+                MessageBox.show(
+                    "Eintrag gespeichert", {
+                        icon: MessageBox.Icon.SUCCESS,
+                        title: "Änderung",
+                        actions: [MessageBox.Action.OK],
+                        emphasizedAction: MessageBox.Action.YES,
+                        onClose: function (oAction) {  }
+                    }
+                );
+                oModel.submitChanges();
+            },
 
 			onSelectAreaType: function(oEvent) {
 				var filters = [];
@@ -301,22 +327,22 @@ sap.ui.define([
 				oBinding.filter(filters);
 			},
 
-			onFilterChange: function() {
+			onMainFilterChange: function() {
 				
 			},
 
 			
 
-            onClearFilter: function() {
+            onMainClearFilter: function() {
                 this.getView().byId("filterCriteria").setValue(null);
                 this.getView().byId("modelTable").getBinding("items").filter(null);
             },
 
-            onFilterItemsChange: function(oEvent) {               
+            onMainFilterItemsChange: function(oEvent) {               
                 sortCriteria = oEvent.getParameter("selectedItem").getText();
             },
 
-            onSortAsc: function(oEvent) {
+            onMainSortAsc: function(oEvent) {
                 var otable = this.getView().byId("modelTable");
                
                 if (sortCriteria) {
@@ -326,10 +352,33 @@ sap.ui.define([
                 }
             },
 
-            onSortDesc: function(oEvent) {
+            onMainSortDesc: function(oEvent) {
                 var otable = this.getView().byId("modelTable");
                 if (sortCriteria) {
                     var oSorter = new Sorter(sortCriteria, true);    
+                    var oBinding = otable.getBinding("items");
+                    oBinding.sort([oSorter]);
+                }
+            },
+
+			onFilterLager: function(oEvent) {               
+                sortLagerCriteria = oEvent.getParameter("selectedItem").getText();
+            },
+
+			onLagerSortAsc: function(oEvent) {
+                var otable = this.getView().byId("TabUebersicht");
+               
+                if (sortLagerCriteria) {
+                    var oSorter = new Sorter(sortLagerCriteria, false);    
+                    var oBinding = otable.getBinding("items");
+                    oBinding.sort([oSorter]);
+                }
+            },
+
+			onLagerSortDesc: function(oEvent) {
+                var otable = this.getView().byId("TabUebersicht");
+                if (sortLagerCriteria) {
+                    var oSorter = new Sorter(sortLagerCriteria, true);    
                     var oBinding = otable.getBinding("items");
                     oBinding.sort([oSorter]);
                 }
@@ -454,14 +503,14 @@ sap.ui.define([
 				
 			} else if(sap.ui.getCore().byId("anzahl").getValue()<= 0){
 				
-MessageBox.show(
-	"Bitte geben sie eine Zahl größer als 0", {
-		icon: MessageBox.Icon.ERROR,
-		title: "Fehler",
-		actions: [MessageBox.Action.OK],
-		onClose: function (oAction) {  }
-	}
-);
+				MessageBox.show(
+					"Bitte geben sie eine Zahl größer als 0", {
+						icon: MessageBox.Icon.ERROR,
+						title: "Fehler",
+						actions: [MessageBox.Action.OK],
+						onClose: function (oAction) {  }
+					}
+				);
 				
 			}
 			
@@ -535,7 +584,103 @@ MessageBox.show(
 			  });
 			 oInput2.bindElement(path2);
 
+		},
+
+		onselectBearbeitung: function(oEvent){
+            var fahrrad = sap.ui.getCore().byId("OriginSelect");
+            var modellID = fahrrad.getSelectedKey();
+            var lager = sap.ui.getCore().byId("LagerSelect");
+            var ortID = lager.getSelectedKey();
+            var vorh = sap.ui.getCore().byId("inputVor");
+            var anzahlBauen = Number(sap.ui.getCore().byId("anzbest").getValue());                                          
+            const path2 = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
+                // Key(s) and value(s) of that entity set
+                "Modellid": modellID, // with the value 999 for example
+                "Ortid": ortID
+              });
+              vorh.bindElement(path2);
+        },
+
+        onBauen: function (oEvent) {
+			var fahrrad = sap.ui.getCore().byId("OriginSelect").getSelectedKey();
+			var lager = sap.ui.getCore().byId("LagerSelect").getSelectedKey();
+			var vorh = Number(sap.ui.getCore().byId("inputVor").getValue());
+			var anzahlBauen = Number(sap.ui.getCore().byId("anzbest").getValue());
+			if (vorh == 0) {
+				MessageBox.show(
+					"Bitte wählen Sie eine Zahl größer als 0", {
+					icon: MessageBox.Icon.ERROR,
+					title: "Fehler",
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function (oAction) { }
+				}
+				);
+			}
+			const path2 = this.getView().getModel().createKey("/FahrradmodellOrtSet", {
+				// Key(s) and value(s) of that entity set
+				"Modellid": fahrrad, // with the value 999 for example
+				"Ortid": lager
+			});
+			var oModel = this.getView().getModel();
+			if (vorh == 0) {
+				oModel.createEntry('/FahrradmodellOrtSet', {
+					properties: {
+						Modellid: fahrrad,
+						Ortid: lager,
+						Bestand: anzahlBauen
+					}
+				});
+				oModel.submitChanges();
+				MessageBox.show(
+					"Fahrradbau erfolgreich in Auftrag gegeben", {
+					icon: MessageBox.Icon.SUCCESS,
+					title: "Eintrag gespeichert",
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function (oAction) { }
+				}
+				);
+				MessageBox.show(
+					"Teileliste und Lagerliste aktualisiert", {
+					icon: MessageBox.Icon.INFORMATION,
+					title: "Status",
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function (oAction) { }
+				}
+				);
+			}
+			else {
+				oModel.setProperty(path2 + '/Bestand', vorh + anzahlBauen);
+				for (let i = anzahlBauen; i >0 ; i--) {
+					oModel.update("/FahrradmodellEinzelteilSet(Modellid='"+fahrrad+"',Einzelteilid='1')",   {
+						Anzahl: 2
+				});
+				oModel.submitChanges();
+				  }
+				oModel.submitChanges();
+				MessageBox.show(
+					"Fahrradbau erfolgreich in Auftrag gegeben", {
+					icon: MessageBox.Icon.SUCCESS,
+					title: "Eintrag gespeichert",
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function (oAction) { }
+				}
+				);
+				MessageBox.show(
+					"Teileliste und Lagerliste aktualisiert", {
+					icon: MessageBox.Icon.INFORMATION,
+					title: "Status",
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.YES,
+					onClose: function (oAction) { }
+				}
+				);
+			}
 		}
+	
 
 		
             
