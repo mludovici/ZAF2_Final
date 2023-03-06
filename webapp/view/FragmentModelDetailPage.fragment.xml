@@ -13,7 +13,7 @@
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <layout:VerticalLayout width="100%" id="layout0">
-                                        <Image width="100%" id="idImg1" src="{Url}" />
+                                        <Image width="100%" src="{Url}" />
                                         <HBox>
                                             <Label text="Preis:" class="sapUiTinyMarginTop" />
                                             <Input value="{Preis}" id="input1" enabled="{settings>/edit}" class="sapUiSmallMarginBegin" />
@@ -111,7 +111,7 @@
                 <content>
                     <ToolbarSpacer width="" />
                     <Text text="Warenkorbsumme: " />
-                    <Input showValueHelp="false" id="gesamt" editable="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" />
+                    <Input showValueHelp="false"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" />
                 </content>
             </OverflowToolbar>
         </footer>

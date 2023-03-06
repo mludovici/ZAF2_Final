@@ -242,7 +242,7 @@
                         <content>
                             <ToolbarSpacer width=""/>
                             <Text text="Warenkorbsumme: " />
-                            <Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
+                            <Input showValueHelp="false"   editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
                                                 valueStateText="Invalid entry" maxLength="0"/>
                         </content>
                     </OverflowToolbar>

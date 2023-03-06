@@ -25,9 +25,9 @@
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
                                     <Input id="in_preis" value="{createPageDataModel>/Preis}"/>
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
-                                    <Input id="in_farbe" />
+                                    <Input id="in_farbe" value="{CreateDataModel>/Farbe}"/>
                                     <Label text="Beschreibung" />
-                                    <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" />
+                                    <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" value="{CreateDataModel>/Beschreibung}"/>
                                     <layout:HorizontalLayout class="ModelCreatePageButton">
                                         <u:FileUploader
                                             id="fileUploader"
@@ -59,7 +59,7 @@
                                         <ColumnListItem>
                                             <cells>
                                                 <ObjectIdentifier title="{Einzelteilname}" />
-                                                <StepInput width="auto" value="0" min="0" id="anzahl1" step="1" change="onQuanChange" visible="true"/>
+                                                <StepInput width="auto" value="0" min="0" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
                                         </ColumnListItem>
                                         </items>
