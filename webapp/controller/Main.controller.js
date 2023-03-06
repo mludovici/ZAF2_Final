@@ -13,7 +13,6 @@ sap.ui.define([
      */
     function (Controller, JSONModel, MessageBox, Fragment, Filter, FilterOperator, Sorter, MessageToast) {
         "use strict";
-
         var Produktgesamtpreis = 0;
 		var Bearbeitungsmodus = 0;
         var oModel = null;
@@ -21,7 +20,8 @@ sap.ui.define([
 		var _oRouter = null;
 		var _oBindingItem = null;
         return Controller.extend("ZAF2_Final.controller.Main", {
-
+				
+				oFragCreatePage: null,
 				oEinzelteilModell: null,
 				oLocalModelData: null,
 				oModelButton: null,
@@ -39,7 +39,13 @@ sap.ui.define([
 					this.oModelButton = new JSONModel({
 						btnIcon: "gt"
 					});
-
+					this.getView().setModel(new JSONModel({
+						Modellname: 'Testbike1',
+						Url:			'2',
+						Preis:		'3',
+						Farbe:			'4',
+						Beschreibung: '5',
+						}), "createPageDataModel");
 					this.getView().setModel(this.oModelButton, 'modelJsonButton')
 
 				},
@@ -164,20 +170,27 @@ sap.ui.define([
             onCreateModel: function() {
 				 var oView = this.getView();
 				 var that = this;
-				 oView.byId('dp1').destroyContent();
-                
-				 
-                 Fragment.load({
-                    name: "zaf2final.view.FragmentModelCreatePage",               
-                    controller: this,
-					id: 'CreatePage'
-                }).then(function(oFragment) { 
-                    that.getView().byId("dp1").insertContent(oFragment);
-                });
+				 oView.byId('dp1').removeContent();
+
+				 if (!this.oFragCreatePage ) {
+					Fragment.load({
+						name: "zaf2final.view.FragmentModelCreatePage",               
+						controller: this						
+					}).then(function(oFragment) { 
+						that.oFragCreatePage = oFragment;
+						that.getView().byId("dp1").insertContent(oFragment);
+						oView.addDependent(oFragment);
+						
+						// oFragment.bindElement("createPageDataModel");
+					});
+				 } else {
+					this.getView().byId("dp1").insertContent(this.oFragCreatePage);
+				 }
+                 
             },
 
 			onPressModelCreate: function(){
-	
+				
 				this.getView().getModel().create('/FahrradmodellSet', {
 					Modellname: 	sap.ui.getCore().byId("CreatePage--in_modellname").getValue(),
 					Url:			sap.ui.getCore().byId("CreatePage--in_url").getValue(),

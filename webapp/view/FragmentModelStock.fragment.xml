@@ -6,7 +6,7 @@
     xmlns="sap.m"
     xmlns:html="http://www.w3.org/1999/xhtml">
  
-    <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det1" showHeader="true" showFooter="true">
+    <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det2" showHeader="true" showFooter="true">
                 <content>
                     <layout:BlockLayout background="Default" visible="true">
                         <layout:content>

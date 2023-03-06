@@ -19,11 +19,11 @@
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <Label text="Modellname" required="true" />
-                                    <Input id="in_modellname" />
+                                    <Input id="in_modellname" value="{createPageDataModel>/Modellname}"/>
                                     <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
-                                    <Input id="in_url" />
+                                    <Input id="in_url" value="{createPageDataModel>/Url}"/>
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
-                                    <Input id="in_preis" />
+                                    <Input id="in_preis" value="{createPageDataModel>/Preis}"/>
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
                                     <Input id="in_farbe" />
                                     <Label text="Beschreibung" />
@@ -59,7 +59,7 @@
                                         <ColumnListItem>
                                             <cells>
                                                 <ObjectIdentifier title="{Einzelteilname}" />
-                                                <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
+                                                <StepInput width="auto" value="0" min="0" id="anzahl1" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
                                         </ColumnListItem>
                                         </items>
