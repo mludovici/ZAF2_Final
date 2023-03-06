@@ -36,7 +36,7 @@
                                 </HBox>
                                 <HBox>
                                     <Label text="Anzahl" required="true" />
-                                    <StepInput width="auto" min="0" id="anzahl" step="1" change="onQuanChange" visible="true" />
+                                    <StepInput width="auto" min="0" id="OrderAnzahl" step="1" change="onQuanChange" visible="true" />
                                 </HBox>
 
                                 <Button press="onPressModelOrder" text="Modell bestellen" icon="sap-icon://add-coursebook" />

@@ -19,15 +19,15 @@
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <Label text="Modellname" required="true" />
-                                    <Input id="in_modellname" />
+                                    <Input id="in_modellname" value="{CreateDataModel>/Modellname}"/>
                                     <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
-                                    <Input id="in_url" />
+                                    <Input id="in_url" value="{CreateDataModel>/Url}"/>
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
-                                    <Input id="in_preis" />
+                                    <Input id="in_preis" value="{CreateDataModel>/Preis}"/>
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
-                                    <Input id="in_farbe" />
+                                    <Input id="in_farbe" value="{CreateDataModel>/Farbe}"/>
                                     <Label text="Beschreibung" />
-                                    <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" />
+                                    <TextArea id="in_beschreibung" placeholder="Beschreibung..." maxLength="400" width="100%" value="{CreateDataModel>/Beschreibung}"/>
                                     <layout:HorizontalLayout class="ModelCreatePageButton">
                                         <u:FileUploader
                                             id="fileUploader"
@@ -59,7 +59,7 @@
                                         <ColumnListItem>
                                             <cells>
                                                 <ObjectIdentifier title="{Einzelteilname}" />
-                                                <StepInput width="auto" value="0" min="0" id="anzahl" step="1" change="onQuanChange" visible="true"/>
+                                                <StepInput width="auto" value="0" min="0" step="1" change="onQuanChange" visible="true"/>
                                             </cells>
                                         </ColumnListItem>
                                         </items>

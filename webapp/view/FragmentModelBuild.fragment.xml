@@ -19,9 +19,9 @@
                                     <HBox>
                                         <Label text="Auswahl des Modells" required="true" />
                                         <Select id="OriginSelect" width="auto" change="onSelectColor" class="sapUiTinyMarginEnd">
-                                            <c:ListItem id="BerLag1" text="Lager Berlin" />
-                                            <c:ListItem id="KoeLag1" text="Lager Köln" />
-                                            <c:ListItem id="MueLag1" text="Lager München" />
+                                            <c:ListItem text="Lager Berlin" />
+                                            <c:ListItem text="Lager Köln" />
+                                            <c:ListItem text="Lager München" />
                                         </Select>
                                     </HBox>
                                     <HBox>
