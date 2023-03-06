@@ -6,7 +6,7 @@
     xmlns="sap.m"
     xmlns:html="http://www.w3.org/1999/xhtml">
  
-    <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det1" showHeader="true" showFooter="true">
+    <Page title="Übersicht Lagerorte und Verkaufsstellen"  id="det2" showHeader="true" showFooter="true">
                 <content>
                     <layout:BlockLayout background="Default" visible="true">
                         <layout:content>
@@ -242,7 +242,7 @@
                         <content>
                             <ToolbarSpacer width=""/>
                             <Text text="Warenkorbsumme: " />
-                            <Input showValueHelp="false" id="gesamt"  editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
+                            <Input showValueHelp="false"   editable="false" visible="true" width="auto" valueHelpOnly="false" required="false"
                                                 valueStateText="Invalid entry" maxLength="0"/>
                         </content>
                     </OverflowToolbar>

@@ -21,13 +21,13 @@
 									<SearchField placeholder="Modellname eingeben" showSearchButton="true" visible="true" width="auto" search="onSearch" />
 									<HBox justifyContent="SpaceBetween">
 										<Select autoAdjustWidth="true" id="filterItems" width="100%" change="onFilterChange" >
-											<c:ListItem id="empty" text="" />
-											<c:ListItem id="preis" text="Preis" />
-											<c:ListItem id="bestand" text="Bestand" />
+											<c:ListItem id="empty" text="" key="none" />
+											<c:ListItem id="preis" text="Preis" key="Preis"/>
+											<c:ListItem id="bestand" text="Bestand" key="Bestand" />
 										</Select>
 										
-										<Button text="" icon="{= ${modelJsonButton>/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
-										<Input type="Number" />
+										<Button id="btnLTGT" text="" icon="{= ${modelJsonButton>/btnIcon} === 'gt' ? 'sap-icon://slim-arrow-right' : 'sap-icon://slim-arrow-left' }" press="onToggleIcon" />
+										<Input type="Number" id="selectFilterInput" valueLiveUpdate="false" submit="onFilterChange" />
 									</HBox>
 
 									<HBox width="100%" justifyContent="End" alignItems="Stretch">
@@ -55,6 +55,9 @@
 						</Column>
 						<Column width="7rem" demandPopin="true" minScreenWidth="Tablet">
 							<Text text="Preis/Bestand"/>
+						</Column>
+						<Column width="7rem" demandPopin="true" minScreenWidth="Tablet">
+							<Text text="Löschen"/>
 						</Column>
 					</columns>
 					<items>

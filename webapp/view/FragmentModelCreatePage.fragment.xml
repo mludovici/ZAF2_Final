@@ -19,11 +19,11 @@
                             <layout:BlockLayoutCell width="1">
                                 <layout:content>
                                     <Label text="Modellname" required="true" />
-                                    <Input id="in_modellname" value="{CreateDataModel>/Modellname}"/>
+                                    <Input id="in_modellname" value="{createPageDataModel>/Modellname}"/>
                                     <Label text="Image Url" required="true" class="ModelCreatePageLabel"/>
-                                    <Input id="in_url" value="{CreateDataModel>/Url}"/>
+                                    <Input id="in_url" value="{createPageDataModel>/Url}"/>
                                     <Label text="Preis" class="ModelCreatePageLabel"/>
-                                    <Input id="in_preis" value="{CreateDataModel>/Preis}"/>
+                                    <Input id="in_preis" value="{createPageDataModel>/Preis}"/>
                                     <Label text="Farbe" class="ModelCreatePageLabel"/>
                                     <Input id="in_farbe" value="{CreateDataModel>/Farbe}"/>
                                     <Label text="Beschreibung" />
